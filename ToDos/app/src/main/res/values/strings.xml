@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ToDos</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="personal_tasks">Personal Tasks</string>
+    <string name="work_tasks">Work Tasks</string>
+    <string name="enter_your_task_discription">Enter your task discription</string>
+    <string name="priority">Priority</string>
+    <string name="high_priority">High Priority</string>
+    <string name="medium_priority">Medium Priority</string>
+    <string name="low_priority">Low Priority</string>
+    <string name="save">Save</string>
+    <string name="update_button">Update</string>
+</resources>
