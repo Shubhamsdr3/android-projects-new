@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="" />
+        <option name="name" value="to-do-app" />
+        <option name="packageNamePattern" value="com.pandey.todos" />
+        <option name="pid" value="" />
+      </filter>
+    </filters>
+  </component>
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="to-do-app" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="690369c7-816b-4962-ad0c-f554dafe2bf5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Popcorn/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/androidTest/java/com/pandey/popcorn/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/java/com/pandey/popcorn/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/java/com/pandey/popcorn/data/ApiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/java/com/pandey/popcorn/data/PopularMoviesResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/java/com/pandey/popcorn/data/RetrofitClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/app/src/test/java/com/pandey/popcorn/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Popcorn2/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/app/build/outputs/" />
+    <ignored path="$PROJECT_DIR$/app/build/tmp/" />
+    <ignored path="$PROJECT_DIR$/app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/" />
+    <ignored path="$PROJECT_DIR$/app/build/intermediates/javac/debugUnitTest/compileDebugUnitTestJavaWithJavac/classes/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ToDos" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1071292704">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.2" value="2" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.open.time.63" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="9" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="gradle" value="7" />
+          <entry key="java" value="95" />
+          <entry key="xml" value="15" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Groovy" value="7" />
+          <entry key="JAVA" value="95" />
+          <entry key="XML" value="15" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="30" />
+          <entry key="gradle" value="48" />
+          <entry key="java" value="4487" />
+          <entry key="xml" value="497" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Groovy" value="48" />
+          <entry key="JAVA" value="4487" />
+          <entry key="PLAIN_TEXT" value="30" />
+          <entry key="XML" value="497" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile_vertical" />
+        <option value="valueResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>onItemClickListener</find>
+      <find>Floa</find>
+      <find>setUpViewModel</find>
+      <find>AppExecutors</find>
+      <find>taskDa</find>
+      <find>dagg</find>
+      <find>Android</find>
+      <find>observ</find>
+      <find>u</find>
+      <find>mUser</find>
+      <find>AppDatabase</find>
+      <find>getWrit</find>
+      <find>.clos</find>
+      <find>clo</find>
+      <find>userDao</find>
+      <find>taskDao</find>
+      <find>appDatabase</find>
+      <find>onStart</find>
+      <find>Insi</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../android-projects/ud843-QuakeReport-starting-point" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/Task.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/TaskEntry.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/NewsFeed.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/repository/RetrofitClient.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/AppExecutors.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/AllTaskRespository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/TaskRespository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/AllTaskPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/TaskRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/DateConverters.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/AddTaskViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/AddTaskViewModelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/User.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/WorkTaskFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_tasks.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/task_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/adapters/NewsFeedAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/NewsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/AddTasksActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/AllTaskFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/adapters/TaskAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/AllTasksPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/PersonalTaskFragments.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/DeleteTaskDialogFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_all_task.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/HomeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/TaskDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/MainViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/AllTaskFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/DbHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/User.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UserDatasource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/LocalUserDatasource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UserDao.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/LocalUserDataSource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/ViewModelFactory.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserViewModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UserDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/AppDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/Injection.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UsersDatabase.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/pandey/todos/LoginActivity.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1301" />
+    <option name="height" value="772" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <autoscrollFromSource AndroidView="true" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ToDos" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="Log&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/LoginActivity.java&#10;gr&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/build.gradle&#10;Logi&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/LoginActivity.java&#10;View&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/model/AddTaskViewModelFactory.java&#10;UserDa&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/data/UserDatasource.java&#10;Lo&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/LoginActivity.java&#10;gra&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/build.gradle&#10;Hom&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/HomeActivity.java&#10;ALl&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/fragment/AllTaskFragment.java&#10;home&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/HomeActivity.java&#10;Perso&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/fragment/PersonalTaskFragments.java&#10;graf&#9;PSI&#9;JAVA://androidx.transition.Slide.GravityFlag&#10;task_l&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/res/layout/task_layout.xml&#10;Date&#9;FILE&#9;file:///home/rivigo/Bitbucket/android-projects-new/ToDos/app/src/main/java/com/pandey/todos/data/DateConverters.java&#10;grad&#9;ACTION&#9;ActivateGradleToolWindow" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="device.picker.selection" value="Nexus_5X_API_28" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="android.template.packageName">
+      <recent name="com.pandey.todos" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="690369c7-816b-4962-ad0c-f554dafe2bf5" name="Default Changelist" comment="" />
+      <created>1556436470037</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556436470037</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2374502" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.54037267" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.8959627" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.32919255" />
+      <window_info anchor="bottom" id="Terminal" order="5" weight="0.4489164" />
+      <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5011952" side_tool="true" weight="0.38509318" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.49880478" visible="true" weight="0.53881985" />
+      <window_info anchor="bottom" id="Find" order="9" weight="0.32919255" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32988048" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" weight="0.32988048" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Preview" order="5" weight="0.32988048" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Capture Tool" order="0" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32988048" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Build Variants" order="5" side_tool="true" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Captures" order="7" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="0" />
+      <window_info anchor="bottom" id="Android Profiler" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Logcat" order="2" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.32919255" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" order="6" weight="0.32972136" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/NewsFeed.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/repository/RetrofitClient.java" />
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/content/Intent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="649" column="31" selection-start-line="649" selection-start-column="31" selection-end-line="649" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/Task.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/TaskRespository.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/TaskRepository.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/DateConverters.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/AddTaskViewModel.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserImpl.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_tasks.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/task_layout.xml" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.transition/transition/1.0.0/9d3d152e753d702c6ae501f0d296e09ddec2fc6/transition-1.0.0-sources.jar!/androidx/transition/Slide.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/adapters/TaskAdapter.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/adapters/NewsFeedAdapter.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/NewsActivity.java" />
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-28/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="2654" column="30" selection-start-line="2654" selection-start-column="30" selection-end-line="2654" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_all_task.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/HomeActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/PersonalTaskFragments.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/WorkTaskFragment.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/AllTaskFragment.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/AppExecutors.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/fragment/DeleteTaskDialogFragment.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/alltasks/AllTasksPresenter.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/TaskEntry.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/DbHelper.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserRepository.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/MainViewModel.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UserDatasource.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/AddTaskViewModelFactory.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/ViewModelFactory.java" />
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/pandey/todos/data/TaskDao_Impl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="143" column="49" selection-start-line="143" selection-start-column="37" selection-end-line="143" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/pandey/todos/data/UserDao_Impl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="106" column="21" selection-start-line="106" selection-start-column="18" selection-end-line="106" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/com/pandey/todos/data/AppDatabase_Impl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="142" column="17" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/AddTasksActivity.java" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.0/ba88ed6468f28df009c013256be77ad72d313965/rxjava-2.2.0-sources.jar!/io/reactivex/disposables/CompositeDisposable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="90" column="47" lean-forward="true" selection-start-line="90" selection-start-column="47" selection-end-line="90" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/TaskDao.java" />
+    <entry file="file://$PROJECT_DIR$/app/build.gradle" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/UserViewModel.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/LocalUserDataSource.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/User.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/model/Injection.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UserDao.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/AppDatabase.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/data/UsersDatabase.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/pandey/todos/LoginActivity.java" />
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
