@@ -1,7 +1,19 @@
 package com.pandey.popcorn4;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.pandey.popcorn4.base.BaseActivity;
+import com.pandey.popcorn4.movie.PopularMoviesFragment;
+import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
+import com.pandey.popcorn4.news.NewsFragment;
+import com.pandey.popcorn4.search.MovieSearchFragment;
+
+import org.jetbrains.annotations.NotNull;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -9,21 +21,10 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-
-import com.pandey.popcorn4.base.BaseActivity;
-import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
-import com.pandey.popcorn4.movie.PopularMoviesFragment;
-import com.pandey.popcorn4.news.NewsFragment;
-
-import org.jetbrains.annotations.NotNull;
-
 
 public class HomeActivity extends BaseActivity implements
-        PopularMoviesFragment.PopularMoviesFragmentListener, NewsFragment.NewsFragmentInteractionListener {
+        PopularMoviesFragment.PopularMoviesFragmentListener, NewsFragment.NewsFragmentInteractionListener ,
+        MovieSearchFragment.MovieSearchFragmentInteractionListener {
 
     private static final String MOVIE_ID = "MOVIE_ID";
 
@@ -60,20 +61,14 @@ public class HomeActivity extends BaseActivity implements
             }
         });
 
-        vPopularMoviesFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentFragment = viewPager.getCurrentItem();
-                viewPager.setCurrentItem(currentFragment, false);
-            }
+        vPopularMoviesFragment.setOnClickListener(v -> {
+            int currentFragment = viewPager.getCurrentItem();
+            viewPager.setCurrentItem(currentFragment, false);
         });
 
-        vNewsFeedFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentFragment = viewPager.getCurrentItem();
-                viewPager.setCurrentItem(currentFragment, false);
-            }
+        vNewsFeedFragment.setOnClickListener(v -> {
+            int currentFragment = viewPager.getCurrentItem();
+            viewPager.setCurrentItem(currentFragment, false);
         });
     }
 
@@ -90,7 +85,19 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
+    public void onSearchIconClicked() {
+        startFragment(MovieSearchFragment.newInstance(), true);
+    }
+
+    @Override
     public void onNewsFragmentInteractionListener() {
+    }
+
+    @Override
+    public void onMovieSelectedFromSearch(@Nullable MoviesResponseDto moviesResponseDto) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra(MOVIE_ID, moviesResponseDto.getId());
+        startActivity(intent);
     }
 
     public  static class HomePageAdapter extends FragmentPagerAdapter {
@@ -105,7 +112,7 @@ public class HomeActivity extends BaseActivity implements
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new PopularMoviesFragment();
+                    return PopularMoviesFragment.newInstance();
 //                case 1:
 //                    return new NewsFragment();
                 default:

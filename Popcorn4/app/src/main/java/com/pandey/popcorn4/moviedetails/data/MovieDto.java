@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import androidx.annotation.Nullable;
 
-public class MovieResponseDto implements Serializable {
+public class MovieDto implements Serializable {
 
     private boolean adult;
 

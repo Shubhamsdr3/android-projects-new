@@ -3,7 +3,7 @@ package com.pandey.popcorn4.moviedetails;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.pandey.popcorn4.moviedetails.data.MovieResponseDto;
+import com.pandey.popcorn4.moviedetails.data.MovieDto;
 import com.pandey.popcorn4.utils.RetrofitHelper;
 
 import java.lang.reflect.Type;
@@ -25,7 +25,7 @@ class MovieDetailPresenter {
     private MovieDetailView movieDetailView;
 
     @Nullable
-    private MovieResponseDto movie;
+    private MovieDto movie;
 
     MovieDetailPresenter(@Nullable MovieDetailView movieDetailView) {
         this.movieDetailView = movieDetailView;
@@ -33,7 +33,7 @@ class MovieDetailPresenter {
 
     void getMovieDetail(int movieId) {
 
-        // Fix it , not a right way to do.
+        //TODO: Fix it , not a right way to do.
         String baseUrl = MOVIE_BASE_URL + movieId;
         Observable<JsonObject> movieDetails =
                 RetrofitHelper.getApiService().getMovieDetail(baseUrl, MOVIE_API_KEY);
@@ -68,13 +68,13 @@ class MovieDetailPresenter {
     }
 
 
-    private MovieResponseDto parseJSON(JsonObject jsonObject) {
+    private MovieDto parseJSON(JsonObject jsonObject) {
         Gson gson = new Gson();
-        Type type = new TypeToken<MovieResponseDto>(){}.getType();
+        Type type = new TypeToken<MovieDto>(){}.getType();
         return gson.fromJson(jsonObject, type);
     }
 
     public interface MovieDetailView {
-        void onMovieDetailCompleted(MovieResponseDto movie);
+        void onMovieDetailCompleted(MovieDto movie);
     }
 }

@@ -1,0 +1,29 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_icon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <Button
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:background="#0000FF"
+        android:gravity="center"
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp"
+        android:text="Sort"
+        android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/widget_title_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:adjustViewBounds="true"
+        android:paddingTop="-10dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_popcorn" />
+
+</FrameLayout>
+

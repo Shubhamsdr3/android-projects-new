@@ -47,7 +47,6 @@ public class PopularMoviePresenter {
                         if (popularMovieView != null) {
                             popularMovieView.onPopularMovieFetching();
                         }
-
                     }
 
                     @Override

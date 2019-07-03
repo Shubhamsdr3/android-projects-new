@@ -10,6 +10,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Retrofit;
 
 public class RetrofitHelper {
@@ -19,7 +20,15 @@ public class RetrofitHelper {
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100, TimeUnit.SECONDS)
                 .writeTimeout(100, TimeUnit.SECONDS)
-                .addInterceptor(new ChuckInterceptor(context))
+                .addNetworkInterceptor(new ChuckInterceptor(context))
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+                    Request.Builder requestBuilder = original.newBuilder()
+                            .addHeader("Accept", "application/json")
+                            .addHeader("Content-Type", "application/json");
+                    Request request = requestBuilder.build();
+                    return chain.proceed(request);
+                })
                 .build();
     }
 

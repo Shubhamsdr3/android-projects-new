@@ -33,10 +33,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title"
                 android:textSize="24sp"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
                 app:layout_constraintLeft_toRightOf="@+id/nav_back"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="20dp"
                 />
+            <FrameLayout
+                android:id="@+id/right_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -6,7 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -84,7 +87,20 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+
+//        Class listenerClass = getListenerClass();
+//
+//        if (listenerClass.isInstance(context)) {
+//            mListener = listenerClass.cast(context);
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement Fragments context");
+//        }
+
     }
+
+//    @NonNull
+//    protected abstract Class getListenerClass();
 
     @Override
     public void onDetach() {
@@ -93,4 +109,17 @@ public abstract class BaseFragment extends Fragment {
 
     @LayoutRes
     public abstract int getLayoutFile();
+
+    public void startDialog(
+            @NonNull DialogFragment fragment,
+            boolean addToBackStack) {
+
+        FragmentManager fm = getChildFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+
+        if (addToBackStack) {
+            transaction.addToBackStack(fragment.getClass().getSimpleName());
+        }
+        fragment.show(transaction, fragment.getClass().getSimpleName());
+    }
 }

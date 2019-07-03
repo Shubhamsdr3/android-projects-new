@@ -1,9 +1,6 @@
 package com.pandey.popcorn4.moviedetails;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,17 +8,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pandey.popcorn4.R;
 import com.pandey.popcorn4.base.BaseFragment;
-import com.pandey.popcorn4.base.TitleTextToolbar;
 import com.pandey.popcorn4.moviedetails.data.MovieGenresDto;
-import com.pandey.popcorn4.moviedetails.data.MovieResponseDto;
+import com.pandey.popcorn4.moviedetails.data.MovieDto;
 
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MovieDetailFragment extends BaseFragment implements MovieDetailPresenter.MovieDetailView {
 
@@ -52,6 +45,7 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
     TextView vReleaseDate;
 
     public MovieDetailFragment() {
+
     }
 
     static MovieDetailFragment newInstance(int movieId) {
@@ -79,7 +73,7 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
     @Nullable
     @Override
     public FrameLayout getToolBar() {
-        return new TitleTextToolbar(Objects.requireNonNull(getActivity()), "Movie Detail", true);
+        return null;
     }
 
     @Override
@@ -88,16 +82,12 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onMovieDetailCompleted(MovieResponseDto movie) {
+    public void onMovieDetailCompleted(MovieDto movie) {
         String imageBaseUrl = IMAGE_BASE_URL +  movie.getPoster_path();
         Glide.with(Objects.requireNonNull(getContext()))
                 .load(imageBaseUrl)
                 .into(vMoviePosterImage);
+
         vMovieTitleView.setText(movie.getTitle());
         vMovieTagline.setText(movie.getTagline());
         vMovieBudget.setText(getString(R.string.movie_budget, String.valueOf(movie.getBudget())));

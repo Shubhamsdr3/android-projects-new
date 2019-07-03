@@ -1,8 +1,13 @@
 package com.pandey.popcorn4;
 
 import com.google.gson.JsonObject;
+import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -23,5 +28,10 @@ public interface ApiService {
                                            @Query("country") String countryCode,
                                            @Query("apiKey") String apiKey);
 
+    @GET
+    Observable<JsonObject> getSearchedMovie(@Url String url,
+                                            @Query("language") String language,
+                                            @Query("api_key") String  apiKey,
+                                            @Query("query") String  query);
 }
 

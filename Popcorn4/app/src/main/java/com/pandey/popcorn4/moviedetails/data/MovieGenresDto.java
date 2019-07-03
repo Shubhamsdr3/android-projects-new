@@ -16,6 +16,7 @@ public class MovieGenresDto implements Serializable {
     {
         return name;
     }
+
     public void setName (@Nullable String name)
         {
             this.name = name;

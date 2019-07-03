@@ -1,4 +1,17 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.gms:google-services:4.2.0'
+    }
+}
 
 android {
     compileSdkVersion 28
@@ -66,4 +79,12 @@ dependencies {
     // GIF image
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     implementation 'com.airbnb.android:lottie:2.0.0-rc1'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-database:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:18.0.0'
+
+    // paging
+    implementation "android.arch.paging:runtime:1.0.1"
 }
