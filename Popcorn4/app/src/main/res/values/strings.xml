@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Popcorn</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="news_description">This is a news discriptions.</string>
+    <string name="more">More</string>
+    <string name="published_at">Published at</string>
+    <string name="news_title">News Title</string>
+    <string name="news_author">News Author</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="news_feed">News Feed</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="movie_description">Movie description</string>
+    <string name="movie_budget">Movie budget %1$s</string>
+    <string name="movie_genres">Adventure/Action/Thriller</string>
+    <string name="movie_language">English</string>
+    <string name="movie_title_text">Interstellar</string>
+    <string name="release_date">09/06/2019</string>
+    <string name="movie_tagline">Mankind was born on Earth. It was never meant to die here.</string>
+    <string name="title">Title</string>
+    <string name="popular_movies_title">Popular Movies</string>
+    <string name="no_result_found">No result Found.</string>
+    <string name="search">Search</string>
+</resources>
