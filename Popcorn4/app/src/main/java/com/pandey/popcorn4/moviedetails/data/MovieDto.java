@@ -9,10 +9,10 @@ public class MovieDto implements Serializable {
     private boolean adult;
 
     @Nullable
-    private String backdrop_path;
+    private String backdropPath;
 
     @Nullable
-    private MovieCollectionDto belongs_to_collection;
+    private MovieCollectionDto belongsToCollection;
 
     private int budget;
 
@@ -73,13 +73,13 @@ public class MovieDto implements Serializable {
     }
 
     @Nullable
-    public String getBackdrop_path() {
-        return backdrop_path;
+    public String getBackdropPath() {
+        return backdropPath;
     }
 
     @Nullable
-    public MovieCollectionDto getBelongs_to_collection() {
-        return belongs_to_collection;
+    public MovieCollectionDto getBelongsToCollection() {
+        return belongsToCollection;
     }
 
     public int getBudget() {
@@ -124,7 +124,7 @@ public class MovieDto implements Serializable {
     }
 
     @Nullable
-    public String getPoster_path() {
+    public String getPosterPath() {
         return poster_path;
     }
 
@@ -187,12 +187,12 @@ public class MovieDto implements Serializable {
         this.adult = adult;
     }
 
-    public void setBackdrop_path(@Nullable String backdrop_path) {
-        this.backdrop_path = backdrop_path;
+    public void setBackdropPath(@Nullable String backdropPath) {
+        this.backdropPath = backdropPath;
     }
 
-    public void setBelongs_to_collection(@Nullable MovieCollectionDto belongs_to_collection) {
-        this.belongs_to_collection = belongs_to_collection;
+    public void setBelongsToCollection(@Nullable MovieCollectionDto belongsToCollection) {
+        this.belongsToCollection = belongsToCollection;
     }
 
     public void setBudget(int budget) {

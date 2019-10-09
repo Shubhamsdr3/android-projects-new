@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import com.pandey.popcorn4.base.BaseActivity;
 
-public class MovieDetailsActivity extends BaseActivity {
+public class MovieDetailsActivity extends BaseActivity implements MovieDetailFragment.MovieDetailFragmentListener {
 
     private static final String MOVIE_ID = "MOVIE_ID";
     private int moveId ;

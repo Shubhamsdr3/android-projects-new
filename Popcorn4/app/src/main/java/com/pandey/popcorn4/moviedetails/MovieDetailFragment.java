@@ -1,11 +1,14 @@
 package com.pandey.popcorn4.moviedetails;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.pandey.popcorn4.AppConfig;
 import com.pandey.popcorn4.R;
 import com.pandey.popcorn4.base.BaseFragment;
 import com.pandey.popcorn4.moviedetails.data.MovieGenresDto;
@@ -13,13 +16,15 @@ import com.pandey.popcorn4.moviedetails.data.MovieDto;
 
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 
-public class MovieDetailFragment extends BaseFragment implements MovieDetailPresenter.MovieDetailView {
+public class MovieDetailFragment extends
+        BaseFragment<MovieDetailFragment.MovieDetailFragmentListener>
+        implements MovieDetailPresenter.MovieDetailView {
 
     private static final String MOVIE_ID = "MOVIE_ID";
-    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 
     private int movieId;
 
@@ -33,7 +38,7 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
     TextView vMovieTagline;
 
     @BindView(R.id.movie_language)
-    TextView vMoviedLanguage;
+    TextView vMovieLanguage;
 
     @BindView(R.id.movie_genres)
     TextView vMovieGenres;
@@ -44,9 +49,8 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
     @BindView(R.id.release_date)
     TextView vReleaseDate;
 
-    public MovieDetailFragment() {
-
-    }
+    @BindView(R.id.loading_animation)
+    LottieAnimationView vLoadingAnimation;
 
     static MovieDetailFragment newInstance(int movieId) {
         MovieDetailFragment fragment = new MovieDetailFragment();
@@ -70,20 +74,15 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
 
     }
 
-    @Nullable
     @Override
-    public FrameLayout getToolBar() {
-        return null;
-    }
-
-    @Override
-    public int getLayoutFile() {
-        return R.layout.layout_movie;
+    public void onMovieDetailsFetching() {
+        vLoadingAnimation.playAnimation();
     }
 
     @Override
     public void onMovieDetailCompleted(MovieDto movie) {
-        String imageBaseUrl = IMAGE_BASE_URL +  movie.getPoster_path();
+        vLoadingAnimation.setVisibility(View.GONE);
+        String imageBaseUrl = AppConfig.getMovieImageBaseUrl() +  movie.getPosterPath();
         Glide.with(Objects.requireNonNull(getContext()))
                 .load(imageBaseUrl)
                 .into(vMoviePosterImage);
@@ -91,10 +90,31 @@ public class MovieDetailFragment extends BaseFragment implements MovieDetailPres
         vMovieTitleView.setText(movie.getTitle());
         vMovieTagline.setText(movie.getTagline());
         vMovieBudget.setText(getString(R.string.movie_budget, String.valueOf(movie.getBudget())));
-        vMoviedLanguage.setText(movie.getOriginal_language());
+        vMovieLanguage.setText(movie.getOriginal_language());
         for (MovieGenresDto genres: movie.getGenres()) {
             vMovieGenres.setText(genres.getName());
         }
         vReleaseDate.setText(movie.getRelease_date());
+    }
+
+    @Nullable
+    @Override
+    public FrameLayout getToolBar() {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    protected Class<MovieDetailFragmentListener> getListenerClass() {
+        return MovieDetailFragmentListener.class;
+    }
+
+    @Override
+    public int getLayoutFile() {
+        return R.layout.layout_movie;
+    }
+
+    interface MovieDetailFragmentListener {
+
     }
 }

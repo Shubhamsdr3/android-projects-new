@@ -1,6 +1,7 @@
 package com.pandey.popcorn4.search;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -8,6 +9,7 @@ import com.pandey.popcorn4.movie.data.MoviesResponseDto;
 import com.pandey.popcorn4.utils.RetrofitHelper;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +33,8 @@ public class MovieSearchPresenter  {
     @Nullable
     private MovieSearchView movieSearchView;
 
-    @Nullable
-    private List<MoviesResponseDto> movieList;
+    @NonNull
+    private List<MoviesResponseDto> movieList = new ArrayList<>();
 
     private static final String MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?page=1";
     private final static String MOVIE_LANGUAGE = "en-US";
@@ -79,7 +81,14 @@ public class MovieSearchPresenter  {
                     public void onNext(JsonObject jsonObject) {
                         Timber.i("Json response %s", jsonObject);
                         JsonArray jsonArray = (JsonArray) jsonObject.get("results");
-                        movieList = parseJSON(jsonArray);
+                        JsonArray emptyJson = new JsonArray();
+                        // TODO: FIX ME : parse Date.
+                        for (int i =0; i < jsonArray.size(); i++) {
+                            if(jsonArray.get(i) != null && !jsonArray.get(i).toString().equals("")) {
+                                emptyJson.add(jsonArray.get(i));
+                            }
+                        }
+                        movieList.addAll(parseJSON(emptyJson));
                     }
 
                     @Override
@@ -96,6 +105,10 @@ public class MovieSearchPresenter  {
                 });
     }
 
+    private void makeDbCall() {
+
+    }
+
     private List<MoviesResponseDto> parseJSON(JsonArray jsonArray) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<MoviesResponseDto>>(){}.getType();
@@ -104,7 +117,7 @@ public class MovieSearchPresenter  {
 
     public interface MovieSearchView {
         void onMovieFetching();
-        void onMovieFetchedSuccess(@Nullable List<MoviesResponseDto> moviesResponseDtoList);
+        void onMovieFetchedSuccess(@NonNull List<MoviesResponseDto> moviesResponseDtoList);
         void onMovieFetchedFailed();
     }
 }

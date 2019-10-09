@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="icon_color">#e50914</color>
     <color name="light_grey">#c0c0c0</color>
+    <color name="movie_background">#F2EDE7</color>
+    <color name="light_green_movie_color">#8effa8</color>
+
 </resources>

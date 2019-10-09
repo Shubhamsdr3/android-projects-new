@@ -45,6 +45,9 @@ class MovieDetailPresenter {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Timber.i("Started fetching details...");
+                        if (movieDetailView != null) {
+                            movieDetailView.onMovieDetailsFetching();
+                        }
                     }
 
                     @Override
@@ -75,6 +78,7 @@ class MovieDetailPresenter {
     }
 
     public interface MovieDetailView {
+        void onMovieDetailsFetching();
         void onMovieDetailCompleted(MovieDto movie);
     }
 }

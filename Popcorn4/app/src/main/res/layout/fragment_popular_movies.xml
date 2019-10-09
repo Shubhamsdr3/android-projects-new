@@ -1,32 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movies_fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/movie_background"
+    android:paddingBottom="18dp"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/search_icon"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/ic_search"-->
+        <!--android:visibility="gone"-->
+        <!--android:padding="10dp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--/>-->
 
     <ImageView
-        android:id="@+id/movie_loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/movie"
-        android:visibility="gone"
-        />
-
-    <ImageView
-        android:id="@+id/search_icon"
+        android:id="@+id/liked_movies_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_search"
-        android:visibility="gone"
+        android:src="@drawable/ic_like_heart"
         android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
         />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popular_movie_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        >
+        tools:listitem="@layout/layout_popular_movie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:lottie_fileName="preloader.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

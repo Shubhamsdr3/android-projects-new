@@ -1,49 +1,53 @@
 package com.pandey.popcorn4.movie;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pandey.popcorn4.R;
 import com.pandey.popcorn4.base.BaseFragment;
 import com.pandey.popcorn4.customeviews.TitleTextToolbar;
-import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.db.AppDatabase;
+import com.pandey.popcorn4.firebase.FirebaseDatabaseUtil;
+import com.pandey.popcorn4.fvrtmovies.data.FvrtMovieDbObjectConverter;
+import com.pandey.popcorn4.movie.data.MovieInfo;
 
 import java.util.List;
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class PopularMoviesFragment extends BaseFragment
-        implements PopularMoviePresenter.PopularMovieView, PopularMovieAdapter.AdapterClickCallback {
-
-    @Nullable
-    private PopularMoviesFragmentListener mListener;
-
-    private DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference mRecentMovieSearch = mRootRef.child("movie1");
+public class PopularMoviesFragment
+        extends BaseFragment<PopularMoviesFragment.PopularMoviesFragmentListener>
+        implements PopularMoviePresenter.PopularMovieView,
+        PopularMovieAdapter.AdapterClickCallback, SwipeToDismissCallback.SwipeToDismissListener {
 
     @BindView(R.id.popular_movie_list)
     RecyclerView recyclerView;
 
-    @BindView(R.id.movie_loading)
-    ImageView vMovieLoader;
+//    @BindView(R.id.search_icon)
+//    ImageView vSearchIcon;
 
-    @BindView(R.id.search_icon)
-    ImageView vSearchIcon;
+    @BindView(R.id.liked_movies_icon)
+    ImageView vFvrtMovieIcon;
+
+    @BindView(R.id.loading_animation)
+    LottieAnimationView vLoadingView;
+
+    @Nullable
+    private PopularMoviePresenter mPopularMoviePresenter;
 
     public static PopularMoviesFragment newInstance() {
         PopularMoviesFragment fragment = new PopularMoviesFragment();
@@ -54,20 +58,22 @@ public class PopularMoviesFragment extends BaseFragment
 
     @Override
     public void initLayout() {
-        vMovieLoader.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
-        PopularMoviePresenter popularMoviePresenter = new PopularMoviePresenter(this);
-        popularMoviePresenter.fetchPopularMovies();
-        vSearchIcon.setVisibility(View.VISIBLE);
+        mPopularMoviePresenter = new PopularMoviePresenter(Objects.requireNonNull(getContext()), this);
+        mPopularMoviePresenter.fetchPopularMovies();
+//        vSearchIcon.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void initListeners() {
+        DatabaseReference mRecentMovieSearch = FirebaseDatabaseUtil.getDatabaseReference();
+        mRecentMovieSearch.child("movie2").setValue("Endgame");
+        mRecentMovieSearch.child("recentSearch");
+
         mRecentMovieSearch.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                Toast.makeText(getContext(), "This is the text..." + text, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -76,36 +82,34 @@ public class PopularMoviesFragment extends BaseFragment
             }
         });
 
-        vSearchIcon.setOnClickListener(v -> {
-            if (mListener != null) {
-                mListener.onSearchIconClicked();
-            }
+        vFvrtMovieIcon.setOnClickListener(v -> {
+            getActivityCommunicator().onFvrtMovieIconClicked();
         });
     }
 
+    @NonNull
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof PopularMoviesFragmentListener) {
-            mListener = (PopularMoviesFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    protected Class<PopularMoviesFragmentListener> getListenerClass() {
+        return PopularMoviesFragmentListener.class;
     }
 
     @Nullable
     @Override
     public FrameLayout getToolBar() {
-        TitleTextToolbar toolbar =  new TitleTextToolbar(Objects.requireNonNull(getActivity()), getString(R.string.popular_movies_title),  false);
-        toolbar.setRightView(vSearchIcon);
+        TitleTextToolbar toolbar =
+                new TitleTextToolbar(
+                        Objects.requireNonNull(getActivity()),
+                        getString(R.string.popular_movies_title),
+                        false
+                );
+//        toolbar.setRightView(vSearchIcon);
+        toolbar.setRightView(vFvrtMovieIcon);
         return toolbar;
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override
@@ -115,35 +119,53 @@ public class PopularMoviesFragment extends BaseFragment
 
     @Override
     public void onPopularMovieFetching() {
-        if(getContext()!= null) {
-            Glide
-                    .with(getContext())
-                    .asGif()
-                    .load(R.drawable.movie)
-                    .into(vMovieLoader);
-        }
+        vLoadingView.playAnimation();
+//        if(getContext()!= null) {
+//            Glide
+//                    .with(getContext())
+//                    .asGif()
+//                    .load(R.drawable.movie)
+//                    .into(vMovieLoader);
+//        }
     }
 
     @Override
-    public void onPopularMoviesFetched(List<MoviesResponseDto> movieList) {
-        vMovieLoader.setVisibility(View.GONE);
-        PopularMovieAdapter popularMovieAdapter =
-                new PopularMovieAdapter(movieList, getContext(), this);
-        if (recyclerView != null) {
-            recyclerView.setAdapter(popularMovieAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
+    public void onPopularMoviesFetched(List<MovieInfo> movieList) {
+        vLoadingView.setVisibility(View.GONE);
+//        vMovieLoader.setVisibility(View.GONE);
+        PopularMovieAdapter mPopularMovieAdapter =
+                new PopularMovieAdapter(movieList, Objects.requireNonNull(getContext()), this);
+        recyclerView.setAdapter(mPopularMovieAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        SwipeToDismissCallback swipeToDismissCallback =
+                new SwipeToDismissCallback(Objects.requireNonNull(getActivity()), this);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeToDismissCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
-    public void onAdapterItemClick(@NonNull MoviesResponseDto movieDto) {
-        if (mListener != null) {
-            mListener.onMovieDetailClicked(movieDto.getId());
+    public void onAdapterItemClick(@NonNull MovieInfo movieInfo) {
+        getActivityCommunicator().onMovieDetailClicked(movieInfo.getMovieId());
+    }
+
+    @Override
+    public void onSwipedItem(int position) {
+        PopularMovieAdapter popularMovieAdapter = (PopularMovieAdapter) recyclerView.getAdapter();
+        if (popularMovieAdapter != null) {
+            MovieInfo movieInfo = popularMovieAdapter.getItem(position);
+            if (mPopularMoviePresenter != null) {
+                mPopularMoviePresenter.saveToDb(FvrtMovieDbObjectConverter.toDbObject(movieInfo));
+            }
         }
     }
 
     public interface PopularMoviesFragmentListener {
+
         void onMovieDetailClicked(int movieId);
+
         void onSearchIconClicked();
+
+        void onFvrtMovieIconClicked();
     }
 }

@@ -21,4 +21,8 @@
     <string name="popular_movies_title">Popular Movies</string>
     <string name="no_result_found">No result Found.</string>
     <string name="search">Search</string>
+    <string name="fcm_token">FCM token 1%s</string>
+    <string name="pop_corn_channel_name">pop_corn_channel_id</string>
+    <string name="channel_description">Pta ni ye kya hota hai ??</string>
+    <string name="snooze">SNOOZE</string>
 </resources>

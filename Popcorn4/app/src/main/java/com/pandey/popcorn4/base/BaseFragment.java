@@ -2,6 +2,10 @@ package com.pandey.popcorn4.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -10,25 +14,19 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.pandey.popcorn4.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends Fragment {
+
+public abstract class BaseFragment<T> extends Fragment {
 
     @BindView(R.id.toolbar_container)
     ViewGroup vToolbarContainer;
 
-    public BaseFragment() {
-        // Required empty public constructor
-    }
+    private T mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,23 +86,33 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-//        Class listenerClass = getListenerClass();
-//
-//        if (listenerClass.isInstance(context)) {
-//            mListener = listenerClass.cast(context);
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement Fragments context");
-//        }
+        Class<T> listenerClass = getListenerClass();
+
+        if (listenerClass.isInstance(context)) {
+            mListener = listenerClass.cast(context);
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement Fragments context");
+        }
 
     }
 
-//    @NonNull
-//    protected abstract Class getListenerClass();
+    @NonNull
+    protected abstract Class<T> getListenerClass();
 
     @Override
     public void onDetach() {
         super.onDetach();
+        mListener =  null;
+    }
+
+    public T getActivityCommunicator() {
+        return mListener;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @LayoutRes
