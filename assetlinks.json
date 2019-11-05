@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.pandey.popcorn4",
+    "sha256_cert_fingerprints":
+    ["98:94:92:0B:9D:10:CE:30:18:7A:DF:5D:E5:DB:15:03:6C:FE:90:E5:2B:DA:F5:B1:7C:90:49:66:21:DB:93:02"]
+  }
+}]
