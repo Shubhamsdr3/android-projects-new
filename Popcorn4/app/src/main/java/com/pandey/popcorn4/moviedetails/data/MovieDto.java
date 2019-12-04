@@ -2,7 +2,10 @@ package com.pandey.popcorn4.moviedetails.data;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.pandey.popcorn4.mediaplayer.data.VideoResponseDto;
 
 public class MovieDto implements Serializable {
 
@@ -67,6 +70,23 @@ public class MovieDto implements Serializable {
     private boolean video;
     private int vote_average;
     private int vote_count;
+
+    @Nullable
+    private VideoResponseDto videos;
+
+    @Nullable
+    public VideoResponseDto getVideos() {
+        return videos;
+    }
+
+    public void setVideos(@NonNull VideoResponseDto videos) {
+        this.videos = videos;
+    }
+
+    @Nullable
+    public String getPoster_path() {
+        return poster_path;
+    }
 
     public boolean isAdult() {
         return adult;

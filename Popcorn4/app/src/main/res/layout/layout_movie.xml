@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/movie_detail_scroll_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_weight="0.60">
+
+        <VideoView
+            android:id="@+id/movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/movie_poster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp"
+            android:padding="16dp"
+            android:background="#80000000">
 
             <TextView
                 android:id="@+id/movie_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:textColor="#ffffff"
                 android:text="@string/movie_title_text"
-                app:layout_constraintTop_toBottomOf="@+id/movie_poster"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -42,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movie_tagline"
+                android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_title_text" />
 
@@ -50,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movie_language"
+                android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_tagline" />
 
@@ -58,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movie_genres"
+                android:textColor="#ffffff"
                 app:layout_constraintTop_toBottomOf="@+id/movie_language"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movie_budget"
+                android:textColor="#ffffff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movie_genres" />
 
@@ -75,24 +84,24 @@
                 android:layout_height="wrap_content"
                 android:text="@string/release_date"
                 android:layout_marginTop="6dp"
+                android:textColor="#ffffff"
                 android:layout_marginStart="6dp"
                 app:layout_constraintLeft_toRightOf="@+id/movie_title_text"
-                app:layout_constraintTop_toBottomOf="@+id/movie_poster"
-                />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/loading_animation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:lottie_fileName="preloader.json"/>
-
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_fileName="preloader.json"/>
+
+</LinearLayout>

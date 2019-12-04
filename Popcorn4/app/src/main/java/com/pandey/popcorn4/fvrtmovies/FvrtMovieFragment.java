@@ -1,6 +1,7 @@
 package com.pandey.popcorn4.fvrtmovies;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -79,7 +80,7 @@ public class FvrtMovieFragment
     }
 
     @Override
-    public void onAdapterItemClick(@NonNull MovieInfo movieInfo) {
+    public void onAdapterItemClick(@NonNull View view, @NonNull MovieInfo movieInfo) {
 
     }
 

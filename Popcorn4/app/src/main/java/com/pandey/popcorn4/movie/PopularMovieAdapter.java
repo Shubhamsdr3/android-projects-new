@@ -67,9 +67,9 @@ public class PopularMovieAdapter
     @NonNull
     private AdapterClickCallback getCallback() {
         if (mAdapterCallback == null) {
-            return (movieDto) -> {
+            return ((view, movieInfo) -> {
                 throw new IllegalStateException("Bhai define to krde callback!");
-            };
+            });
         }
         return mAdapterCallback;
     }
@@ -114,12 +114,12 @@ public class PopularMovieAdapter
         }
 
         void bind(@NonNull MovieInfo movieInfo) {
-            itemView.setOnClickListener(v -> getCallback().onAdapterItemClick(movieInfo));
+            itemView.setOnClickListener(v -> getCallback().onAdapterItemClick(v, movieInfo));
         }
     }
 
     public interface AdapterClickCallback {
-        void onAdapterItemClick(@NonNull MovieInfo movieInfo);
+        void onAdapterItemClick(@NonNull View view, @NonNull MovieInfo movieInfo);
     }
 }
 

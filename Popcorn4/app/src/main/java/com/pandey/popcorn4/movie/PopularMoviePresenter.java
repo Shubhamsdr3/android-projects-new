@@ -2,38 +2,32 @@ package com.pandey.popcorn4.movie;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.pandey.popcorn4.base.BasePresenter;
-import com.pandey.popcorn4.db.AppDatabase;
-import com.pandey.popcorn4.db.FvrtMoviesDbObject;
-import com.pandey.popcorn4.fvrtmovies.data.FvrtMovieDbObjectConverter;
-import com.pandey.popcorn4.movie.data.MovieInfo;
-import com.pandey.popcorn4.movie.data.MoviesResponseDto;
-import com.pandey.popcorn4.utils.RetrofitHelper;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.pandey.popcorn4.AppConfig;
+import com.pandey.popcorn4.base.BasePresenter;
+import com.pandey.popcorn4.db.AppDatabase;
+import com.pandey.popcorn4.db.FvrtMoviesDbObject;
+import com.pandey.popcorn4.movie.data.MovieInfo;
+import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.utils.DataUtils;
+import com.pandey.popcorn4.utils.RetrofitHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Completable;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class PopularMoviePresenter extends BasePresenter {
+class PopularMoviePresenter extends BasePresenter {
 
-    private static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
-    private static final String MOVIE_API_KEY = "8d0bbe47677faff5e8d33e89d1aac537";
 
     @NonNull
     private List<MoviesResponseDto> movieList = new ArrayList<>();
@@ -41,20 +35,26 @@ public class PopularMoviePresenter extends BasePresenter {
     @Nullable
     private PopularMovieView popularMovieView;
 
+
+    @Nullable
+    private MoviesResponseDto mMovieResponseDto;
+
     @NonNull
     private Context mContext;
 
     PopularMoviePresenter(@NonNull Context mContext, @Nullable PopularMovieView popularMovieView) {
         this.popularMovieView = popularMovieView;
         this.mContext = mContext;
+        fetchLatestMovie();
     }
 
     void fetchPopularMovies() {
-        Observable<JsonObject> responseSingle =
-                RetrofitHelper.getApiService().getPopularMovies(MOVIE_BASE_URL, MOVIE_API_KEY);
-
-        responseSingle
-                .subscribeOn(Schedulers.io())
+        RetrofitHelper
+                .getApiService()
+                .getPopularMovies(
+                        AppConfig.getMovieBaseUrl() + "popular",
+                        AppConfig.getMovieApiKey()
+                ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonObject>() {
                     @Override
@@ -68,7 +68,7 @@ public class PopularMoviePresenter extends BasePresenter {
                     public void onNext(JsonObject jsonObject) {
                         Timber.i("Json response %s", jsonObject);
                         JsonArray jsonArray = (JsonArray) jsonObject.get("results");
-                        movieList.addAll(parseJSON(jsonArray));
+                        movieList.addAll(DataUtils.parseJSONArrayToList(jsonArray));
                     }
 
                     @Override
@@ -79,6 +79,42 @@ public class PopularMoviePresenter extends BasePresenter {
                     @Override
                     public void onComplete() {
                         handleResponse(movieList);
+                    }
+                });
+    }
+
+    private void fetchLatestMovie() {
+        String latestMovieUrl = AppConfig.getMovieBaseUrl() + "latest";
+
+        RetrofitHelper
+                .getApiService()
+                .getLatestMovie(
+                        latestMovieUrl,
+                        AppConfig.getEngLang(),
+                        AppConfig.getMovieApiKey()
+                ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MoviesResponseDto>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MoviesResponseDto moviesResponseDto) {
+                        mMovieResponseDto = moviesResponseDto;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.i(e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (popularMovieView != null && mMovieResponseDto != null) {
+                            popularMovieView.onLatestMovieFetchSuccess(mMovieResponseDto);
+                        }
                     }
                 });
     }
@@ -130,7 +166,7 @@ public class PopularMoviePresenter extends BasePresenter {
         }
     }
 
-    public void saveToDb(@NonNull FvrtMoviesDbObject fvrtMoviesDbObject) {
+    void saveToDb(@NonNull FvrtMoviesDbObject fvrtMoviesDbObject) {
         Completable.fromAction(
                 () -> AppDatabase.appDatabase(mContext).fvrtMoviesDao().insert(fvrtMoviesDbObject))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -138,15 +174,10 @@ public class PopularMoviePresenter extends BasePresenter {
                 .subscribe();
     }
 
-    private List<MoviesResponseDto> parseJSON(JsonArray jsonArray) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<MoviesResponseDto>>(){}.getType();
-        return gson.fromJson(jsonArray, type);
-    }
-
     public interface PopularMovieView {
         void onPopularMovieFetching();
         void onPopularMoviesFetched(List<MovieInfo> movieInfoList);
+        void onLatestMovieFetchSuccess(@NonNull MoviesResponseDto moviesResponseDto);
     }
 }
 

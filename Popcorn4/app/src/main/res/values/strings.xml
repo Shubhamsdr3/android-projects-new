@@ -25,4 +25,5 @@
     <string name="pop_corn_channel_name">pop_corn_channel_id</string>
     <string name="channel_description">Pta ni ye kya hota hai ??</string>
     <string name="snooze">SNOOZE</string>
+    <string name="picture_transition_name">Example Transition</string>
 </resources>

@@ -1,10 +1,15 @@
 package com.pandey.popcorn4;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.pandey.popcorn4.base.BaseActivity;
@@ -15,7 +20,10 @@ import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
 import com.pandey.popcorn4.news.NewsFragment;
 import com.pandey.popcorn4.search.MovieSearchFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
+import io.reactivex.functions.Consumer;
 
 
 public class HomeActivity extends BaseActivity implements
@@ -36,15 +44,21 @@ public class HomeActivity extends BaseActivity implements
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        //To do//
+                        //To do
                         return;
                     }
-                    // Get the Instance ID token//
+                    // Get the Instance ID token
                     String token = task.getResult().getToken();
                     String msg = getResources().getString(R.string.fcm_token, token);
                     Log.d(TAG, msg);
 
                 });
+
+
+        PopApplication.getInstance().getGlobalBuses().toObservable().subscribe(s -> {
+            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        });
+
     }
 
     @Override
@@ -53,10 +67,16 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
-    public void onMovieDetailClicked(int movieId) {
+    public void onMovieDetailClicked(@NonNull View view, int movieId) {
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this ,
+                        view,
+                        getString(R.string.picture_transition_name)
+                );
         Intent newActivity =  new Intent(this, MovieDetailsActivity.class);
         newActivity.putExtra(MOVIE_ID, movieId);
-        startActivity(newActivity);
+        startActivity(newActivity, options.toBundle());
     }
 
     @Override
@@ -65,8 +85,17 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
-    public void onFvrtMovieIconClicked() {
-        startActivity(new Intent(this, FvrtMovieActivity.class));
+    public void onFvrtMovieIconClicked(@NonNull View view) {
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this ,
+                        view,
+                        getString(R.string.picture_transition_name)
+                );
+        Intent intent = new Intent(this, FvrtMovieActivity.class);
+        startActivity(intent, options.toBundle());
+
+//        startActivity(new Intent(this, FvrtMovieActivity.class));
     }
 
     @Override
@@ -78,6 +107,6 @@ public class HomeActivity extends BaseActivity implements
     public void onMovieSelectedFromSearch(@Nullable MoviesResponseDto moviesResponseDto) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra(MOVIE_ID, moviesResponseDto.getId());
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }

@@ -12,8 +12,9 @@ public class FBNotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
         Timber.d("The received message is: %s", remoteMessage.toString());
-        NotificationManager mNotificationManager = new NotificationManager(this);
+        NotificationManager mNotificationManager = new NotificationManager(getApplicationContext());
         mNotificationManager.notifyRemoteMessage(remoteMessage);
     }
 

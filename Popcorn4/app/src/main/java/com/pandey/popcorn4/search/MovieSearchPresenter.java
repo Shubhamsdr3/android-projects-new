@@ -1,21 +1,19 @@
 package com.pandey.popcorn4.search;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
+import com.pandey.popcorn4.AppConfig;
 import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.utils.DataUtils;
 import com.pandey.popcorn4.utils.RetrofitHelper;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,10 +33,6 @@ public class MovieSearchPresenter  {
 
     @NonNull
     private List<MoviesResponseDto> movieList = new ArrayList<>();
-
-    private static final String MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?page=1";
-    private final static String MOVIE_LANGUAGE = "en-US";
-    private final static String API_KEY = "8d0bbe47677faff5e8d33e89d1aac537";
 
     MovieSearchPresenter(@Nullable MovieSearchView movieSearchView) {
         this.movieSearchView = movieSearchView;
@@ -60,12 +54,14 @@ public class MovieSearchPresenter  {
     }
 
     private void makeNetworkCall(@NonNull String text) {
-
-        Observable<JsonObject> searchedMovie =
-                RetrofitHelper.getApiService().getSearchedMovie(MOVIE_SEARCH_URL, MOVIE_LANGUAGE, API_KEY, text);
-
-        searchedMovie
-                .subscribeOn(Schedulers.io())
+        RetrofitHelper
+                .getApiService()
+                .getSearchedMovie(
+                        AppConfig.getMovieSearchUrl(),
+                        AppConfig.getEngLang(),
+                        AppConfig.getMovieApiKey(),
+                        text
+                ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonObject>() {
 
@@ -88,7 +84,7 @@ public class MovieSearchPresenter  {
                                 emptyJson.add(jsonArray.get(i));
                             }
                         }
-                        movieList.addAll(parseJSON(emptyJson));
+                        movieList.addAll(DataUtils.parseJSONArrayToList(emptyJson));
                     }
 
                     @Override
@@ -107,12 +103,6 @@ public class MovieSearchPresenter  {
 
     private void makeDbCall() {
 
-    }
-
-    private List<MoviesResponseDto> parseJSON(JsonArray jsonArray) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<MoviesResponseDto>>(){}.getType();
-        return gson.fromJson(jsonArray, type);
     }
 
     public interface MovieSearchView {

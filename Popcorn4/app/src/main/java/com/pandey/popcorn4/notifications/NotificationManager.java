@@ -1,12 +1,12 @@
 package com.pandey.popcorn4.notifications;
 
-import android.annotation.TargetApi;
 import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
@@ -29,7 +29,6 @@ import timber.log.Timber;
 public class NotificationManager {
 
     private static final String POP_CORN_CHANNEL_ID = "pop_corn_channel_id";
-    private static final String EXTRA_NOTIFICATION_ID = "EXTRA_NOTIFICATION_ID";
 
     @NonNull
     private Context mContext;
@@ -38,6 +37,7 @@ public class NotificationManager {
 
     NotificationManager(@NonNull Context context) {
         this.mContext = context;
+        Timber.d("Inside the notification manager...");
     }
 
     /**
@@ -71,7 +71,6 @@ public class NotificationManager {
                     //To make expandable.
                     .setStyle(new NotificationCompat.BigTextStyle()
                             .bigText(remoteMessage.getNotification().getBody()));
-            notificationBuilder.setContentIntent(pendingIntent);
             android.app.NotificationManager notificationManager =
                     (android.app.NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(notificationId++, notificationBuilder.build());
@@ -84,6 +83,8 @@ public class NotificationManager {
     private void createCustomNotification(@NonNull RemoteMessage remoteMessage) {
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
+        String deeplink = remoteMessage.getData().get("deeplink");
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mContext, POP_CORN_CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -91,22 +92,21 @@ public class NotificationManager {
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setSmallIcon(R.drawable.ic_popcorn)
                 .setAutoCancel(true)
-                //To make expandable.
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(body));
 
-        // Adding actions to notifications
-        Intent snoozeIntent = new Intent(mContext, HomeActivity.class);
-        snoozeIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId++);
-        PendingIntent snoozePendingIntent =
-                PendingIntent.getActivity(mContext, 0, snoozeIntent, 0);
-        notificationBuilder.addAction(
-                R.drawable.ic_search, mContext.getResources().getString(R.string.snooze),
-                snoozePendingIntent
-        );
-        notificationBuilder.setContentIntent(snoozePendingIntent);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(deeplink));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent redirection =
+                PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        notificationBuilder.setContentIntent(redirection);
         android.app.NotificationManager notificationManager =
                 (android.app.NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String name = "PopCorn";
             String description = "Notifications for popcorn";
@@ -119,7 +119,7 @@ public class NotificationManager {
         }
 
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.layout_news_feed);
-        remoteViews.setTextViewText(R.id.shadow, "Hame kya pta ki ye kya hai ?");
+        remoteViews.setTextViewText(R.id.shadow, "Hume kya pta ki ye kya hai ?");
         notificationBuilder.setCustomBigContentView(remoteViews);
         notificationManager.notify(notificationId++, notificationBuilder.build());
     }

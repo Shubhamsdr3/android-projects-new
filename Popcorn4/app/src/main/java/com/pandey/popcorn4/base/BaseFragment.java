@@ -52,7 +52,7 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+
         beforeInit();
         initLayout();
         initListeners();

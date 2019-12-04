@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.pandey.popcorn4">
 
     <dist:module dist:instant="true" />
@@ -32,37 +33,74 @@
         <!--Defining your default notification channel id-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel"
-            android:value="@string/pop_corn_channel_name"/>
+            android:value="@string/pop_corn_channel_name" />
 
 
         <!-- Activities -->
         <activity
             android:name=".moviedetails.MovieDetailsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
-        <activity android:name=".HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="app://"
+                    android:host="www.popcorn.com"
+                    android:path="/movieDetail"
+                    />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".customeviews.CustomActivity" />
+
+        <activity android:name=".customeviews.CustomActivity"
+
+            />
         <activity android:name=".fvrtmovies.FvrtMovieActivity" />
+        <activity android:name=".mediaplayer.MediaPlayerActivity" />
+
+        <activity android:name=".deeplinks.DeeplinkActivity"
+            android:theme="@style/Theme.AppCompat">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.popcorn.com"
+                    android:scheme="http" />
+                <data
+                    android:host="www.popcorn.com"
+                    android:scheme="https" />
+            </intent-filter>
+
+        </activity>
 
         <service
             android:name=".services.GPSService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name= "com.androidbook.services.GPSService.SERVICE" />
+                <action android:name="com.androidbook.services.GPSService.SERVICE" />
             </intent-filter>
         </service>
 
         <service
             android:name=".notifications.FBNotificationService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
