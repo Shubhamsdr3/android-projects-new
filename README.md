@@ -1,4 +1,4 @@
-# android-projects-new
+# Popcorn
 
 A learning projects of android, it gets the movies data from [TheMovieDb](https://www.themoviedb.org/documentation/api?language=en-US).
 
