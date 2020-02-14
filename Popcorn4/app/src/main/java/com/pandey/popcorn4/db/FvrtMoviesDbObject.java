@@ -27,8 +27,8 @@ public class FvrtMoviesDbObject {
     @ColumnInfo(name = "movieDescription")
     public String movieDescription;
 
-    @ColumnInfo(name = "voteCount")
-    public int movieVoteCount;
+    @ColumnInfo(name = "movieCount")
+    public int movieStarCount;
 
     @ColumnInfo(name = "language")
     public String movieLanguage;
@@ -40,14 +40,14 @@ public class FvrtMoviesDbObject {
                               @Nullable String moviePosterPath,
                               @NonNull String movieTitle,
                               @Nullable String movieDescription,
-                              int movieVoteCount,
+                              int movieStarCount,
                               @Nullable String movieLanguage,
                               long timestamp) {
         this.movieId = movieId;
         this.moviePosterPath = moviePosterPath;
         this.movieDescription = movieDescription;
         this.movieTitle = movieTitle;
-        this.movieVoteCount = movieVoteCount;
+        this.movieStarCount = movieStarCount;
         this.movieLanguage = movieLanguage;
         this.timestamp = timestamp;
     }

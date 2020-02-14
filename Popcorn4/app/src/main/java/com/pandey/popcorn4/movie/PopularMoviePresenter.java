@@ -123,42 +123,43 @@ class PopularMoviePresenter extends BasePresenter {
         List<MovieInfo> movieInfoList = new ArrayList<>(movieList.size());
 
         for (MoviesResponseDto moviesResponseDto: movieList) {
-            movieInfoList.add(new MovieInfo() {
-                                  @Override
-                                  public int getMovieId() {
-                                      return moviesResponseDto.getId();
-                                  }
 
-                                  @Nullable
-                                  @Override
-                                  public String getMoviePoster() {
-                                      return moviesResponseDto.getPoster_path();
-                                  }
+            movieInfoList.add(
+                    new MovieInfo() {
+                        @Override
+                        public int getMovieId() {
+                            return moviesResponseDto.getId();
+                        }
 
-                                  @NonNull
-                                  @Override
-                                  public String getMovieTitle() {
-                                      return moviesResponseDto.getTitle();
-                                  }
+                        @Nullable
+                        @Override
+                        public String getMoviePoster() {
+                            return moviesResponseDto.getPoster_path();
+                        }
 
-                                  @NonNull
-                                  @Override
-                                  public String getMovieVoteCount() {
-                                      return String.valueOf(moviesResponseDto.getVote_count());
-                                  }
+                        @NonNull
+                        @Override
+                        public String getMovieTitle() {
+                            return moviesResponseDto.getTitle();
+                        }
 
-                                  @Nullable
-                                  @Override
-                                  public String getMovieLanguage() {
-                                      return moviesResponseDto.getOriginal_language();
-                                  }
+                        @Override
+                        public int getMovieStar() {
+                            return (int) (moviesResponseDto.getVote_average() / 2);
+                        }
 
-                                  @Nullable
-                                  @Override
-                                  public String getMovieMovieDescription() {
-                                      return moviesResponseDto.getOverview();
-                                  }
-                              });
+                        @Nullable
+                        @Override
+                        public String getMovieLanguage() {
+                            return moviesResponseDto.getOriginal_language();
+                        }
+
+                        @Nullable
+                        @Override
+                        public String getMovieMovieDescription() {
+                            return moviesResponseDto.getOverview();
+                        }
+                    });
         }
 
         if (popularMovieView != null) {

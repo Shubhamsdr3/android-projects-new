@@ -26,8 +26,6 @@ public class MovieSearchPresenter  {
 
     private PublishSubject<String> mSearchString = PublishSubject.create();
 
-    private CompositeDisposable disposable = new CompositeDisposable();
-
     @Nullable
     private MovieSearchView movieSearchView;
 

@@ -1,12 +1,19 @@
 package com.pandey.popcorn4;
 
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.pandey.popcorn4.utils.RetrofitHelper;
+import com.pixplicity.easyprefs.library.Prefs;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class PopApplication extends Application {
 
@@ -16,13 +23,7 @@ public class PopApplication extends Application {
 
     private GlobalBuses globalBuses;
 
-    public static PopApplication getInstance(){
-        return instance;
-    }
-
-    public static Context getContext(){
-        return instance;
-    }
+    private static final String APP_CONFIG_KEY = "APP_CONFIG_KEY";
 
     @Override
     public void onCreate() {
@@ -32,8 +33,41 @@ public class PopApplication extends Application {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         globalBuses = new GlobalBuses();
+        fetchApiConfig();
+        initConfig();
     }
 
+    // Initialize the Prefs class
+    private void initConfig() {
+        new Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(getPackageName())
+                .setUseDefaultSharedPreference(true)
+                .build();
+    }
+
+    @SuppressLint("CheckResult")
+    private void fetchApiConfig() {
+        RetrofitHelper
+                .getApiService()
+                .getAppConfig(
+                        AppConfig.getConfigUrl(),
+                        AppConfig.getMovieApiKey()
+                ).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(configResponseDto -> {
+                    Prefs.putString(APP_CONFIG_KEY, new Gson().toJson(configResponseDto));
+                });
+    }
+
+    public static PopApplication getInstance(){
+        return instance;
+    }
+
+    public static Context getContext(){
+        return instance;
+    }
 
     public static FirebaseAnalytics getFirebaseAnalytics() {
         return mFirebaseAnalytics;

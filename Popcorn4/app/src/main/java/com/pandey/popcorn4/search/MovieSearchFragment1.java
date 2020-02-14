@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -20,7 +19,6 @@ import com.pandey.popcorn4.customeviews.KeyboardUtils;
 import com.pandey.popcorn4.movie.data.MoviesResponseDto;
 import com.pandey.popcorn4.movie.data.RecentMovieSearched;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,14 +31,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
-public class MovieSearchFragment extends BaseFragment implements MovieSearchAdapterFilterable.MovieSearchAdapterListener,
+public class MovieSearchFragment1 extends BaseFragment implements MovieSearchAdapterFilterable.MovieSearchAdapterListener,
         MovieSearchPresenter.MovieSearchView {
 
-    @Nullable
-    private CompositeDisposable disposable = new CompositeDisposable();
 
     HashMap<String, RecentMovieSearched> recentSearches = new HashMap<>();
 
@@ -76,8 +71,8 @@ public class MovieSearchFragment extends BaseFragment implements MovieSearchAdap
     @BindView(R.id.search_edit_text)
     EditText vSearchInputEt;
 
-    public static MovieSearchFragment newInstance() {
-        MovieSearchFragment fragment = new MovieSearchFragment();
+    public static MovieSearchFragment1 newInstance() {
+        MovieSearchFragment1 fragment = new MovieSearchFragment1();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -152,7 +147,9 @@ public class MovieSearchFragment extends BaseFragment implements MovieSearchAdap
                         moviesResponseDto.getOriginal_language(),
                         moviesResponseDto.getOverview(),
                         moviesResponseDto.getRelease_date());
+
         recentSearches.put(String.valueOf(itemCount), recentMovieSearched);
+
         Timber.i("Saving searched to db..%s", recentSearches);
         mRootRef.child("recentSearch").setValue(recentSearches);
         if (mListener != null) {

@@ -20,15 +20,12 @@ import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
 import com.pandey.popcorn4.news.NewsFragment;
 import com.pandey.popcorn4.search.MovieSearchFragment;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.ButterKnife;
-import io.reactivex.functions.Consumer;
 
 
 public class HomeActivity extends BaseActivity implements
         PopularMoviesFragment.PopularMoviesFragmentListener, NewsFragment.NewsFragmentInteractionListener ,
-        MovieSearchFragment.MovieSearchFragmentInteractionListener {
+        MovieSearchFragment.MovieSearchFragmentListener {
 
     private static final String MOVIE_ID = "MOVIE_ID";
     private static final String TAG = "HomeActivity";
@@ -53,7 +50,6 @@ public class HomeActivity extends BaseActivity implements
                     Log.d(TAG, msg);
 
                 });
-
 
         PopApplication.getInstance().getGlobalBuses().toObservable().subscribe(s -> {
             Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
@@ -80,8 +76,8 @@ public class HomeActivity extends BaseActivity implements
     }
 
     @Override
-    public void onSearchIconClicked() {
-        startFragment(MovieSearchFragment.newInstance(), true);
+    public void onSearchBarClicked() {
+        startFragment(new MovieSearchFragment(), true);
     }
 
     @Override

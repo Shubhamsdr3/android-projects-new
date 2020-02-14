@@ -13,8 +13,7 @@ public interface MovieInfo {
     @NonNull
     String getMovieTitle();
 
-    @NonNull
-    String getMovieVoteCount();
+    int getMovieStar();
 
     @Nullable
     String getMovieLanguage();

@@ -7,24 +7,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.pandey.popcorn4.R;
-import com.pandey.popcorn4.movie.data.MovieInfo;
-import com.pandey.popcorn4.movie.data.MoviesResponseDto;
-
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.pandey.popcorn4.R;
+import com.pandey.popcorn4.movie.customviews.MovieStarsView;
+import com.pandey.popcorn4.movie.data.MovieInfo;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.droidsonroids.gif.GifImageView;
 
 public class PopularMovieAdapter
         extends RecyclerView.Adapter<PopularMovieAdapter.PopularMovieViewHolder> {
 
-    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w92";
+    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
     @NonNull
     private List<MovieInfo> popularMovieList;
@@ -47,7 +47,7 @@ public class PopularMovieAdapter
     @Override
     public PopularMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_popular_movie, parent, false);
+                .inflate(R.layout.movie_card_view, parent, false);
         return new PopularMovieViewHolder(view);
     }
 
@@ -59,8 +59,7 @@ public class PopularMovieAdapter
                 .load(imageBaseUrl)
                 .into(holder.movieImage);
         holder.movieTitle.setText(movie.getMovieTitle());
-        holder.movieDescription.setText(movie.getMovieMovieDescription());
-        holder.movieVoteCount.setText(movie.getMovieVoteCount());
+        holder.vMovieStarsView.showStars((movie.getMovieStar()));
         holder.bind(movie);
     }
 
@@ -96,17 +95,14 @@ public class PopularMovieAdapter
 
     class PopularMovieViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_image)
+        @BindView(R.id.movie_poster_image)
         ImageView movieImage;
 
         @BindView(R.id.movie_title)
         TextView movieTitle;
 
-        @BindView(R.id.movie_vote_count)
-        TextView movieVoteCount;
-
-        @BindView(R.id.movie_description)
-        TextView movieDescription;
+        @BindView(R.id.movie_stars_view)
+        MovieStarsView vMovieStarsView;
 
         PopularMovieViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -26,4 +26,11 @@
     <string name="channel_description">Pta ni ye kya hota hai ??</string>
     <string name="snooze">SNOOZE</string>
     <string name="picture_transition_name">Example Transition</string>
+    <string name="watch_movie_question_title">Hello, what do you want to watch ?</string>
+    <string name="recommended_for_you">RECOMMENDED FOR YOU</string>
+    <string name="see_all">See all</string>
+    <string name="watch_now">Watch now</string>
+    <string name="studio_title">Studio</string>
+    <string name="genre_title">Genre</string>
+    <string name="release_title">Release</string>
 </resources>

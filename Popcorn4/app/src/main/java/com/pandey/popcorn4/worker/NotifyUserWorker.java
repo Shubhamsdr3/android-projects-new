@@ -71,7 +71,4 @@ public class NotifyUserWorker extends Worker {
         manager.notify(1, builder.build());
     }
 
-
-
-
 }

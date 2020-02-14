@@ -133,6 +133,10 @@ dependencies {
 
     // Event bus
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    // shared prefs:
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'
+
 }
 repositories {
     mavenCentral()

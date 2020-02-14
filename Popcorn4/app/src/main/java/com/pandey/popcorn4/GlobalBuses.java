@@ -2,6 +2,8 @@ package com.pandey.popcorn4;
 
 import androidx.annotation.NonNull;
 
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -15,6 +17,7 @@ public class GlobalBuses {
     }
 
 
+    @Singleton
     public Observable<String> toObservable() {
         return changeBus;
     }

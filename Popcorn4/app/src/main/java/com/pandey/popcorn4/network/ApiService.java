@@ -1,6 +1,7 @@
-package com.pandey.popcorn4;
+package com.pandey.popcorn4.network;
 
 import com.google.gson.JsonObject;
+import com.pandey.popcorn4.appdata.ConfigResponseDto;
 import com.pandey.popcorn4.mediaplayer.data.VideoResponseDto;
 import com.pandey.popcorn4.movie.data.MoviesResponseDto;
 
@@ -18,6 +19,11 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     //TODO: remove taking URL as parameter.
+
+    @GET
+    Observable<ConfigResponseDto> getAppConfig(@Url String url,
+                                               @Query("api_key") String apiKey);
+
     @GET
     Observable<JsonObject> getPopularMovies(@Url String url,
                                             @Query("api_key") String apiKey);

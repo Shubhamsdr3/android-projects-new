@@ -19,6 +19,8 @@ import com.pandey.popcorn4.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public abstract class BaseFragment<T> extends Fragment {
@@ -27,6 +29,9 @@ public abstract class BaseFragment<T> extends Fragment {
     ViewGroup vToolbarContainer;
 
     private T mListener;
+
+    @NonNull
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,10 @@ public abstract class BaseFragment<T> extends Fragment {
     public void afterInit() {
     }
 
+    public void addAllDisposable(Disposable... disposables) {
+        mDisposable.addAll(disposables);
+    }
+
     private void setUpToolbar() {
         FrameLayout toolbar = getToolBar();
         if (toolbar != null) {
@@ -106,13 +115,14 @@ public abstract class BaseFragment<T> extends Fragment {
         mListener =  null;
     }
 
-    public T getActivityCommunicator() {
+    protected T getActivityCommunicator() {
         return mListener;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mDisposable.clear();
     }
 
     @LayoutRes

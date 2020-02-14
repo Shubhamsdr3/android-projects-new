@@ -2,7 +2,7 @@ package com.pandey.popcorn4.utils;
 
 import android.content.Context;
 
-import com.pandey.popcorn4.ApiService;
+import com.pandey.popcorn4.network.ApiService;
 import com.pandey.popcorn4.PopApplication;
 import com.pandey.popcorn4.RetrofitClient;
 import com.readystatesoftware.chuck.ChuckInterceptor;

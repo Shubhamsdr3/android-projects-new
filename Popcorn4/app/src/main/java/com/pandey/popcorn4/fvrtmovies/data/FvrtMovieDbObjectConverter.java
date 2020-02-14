@@ -15,7 +15,7 @@ public class FvrtMovieDbObjectConverter {
                 movieInfo.getMoviePoster(),
                 movieInfo.getMovieTitle(),
                 movieInfo.getMovieMovieDescription(),
-                Integer.parseInt(movieInfo.getMovieVoteCount()),
+                movieInfo.getMovieStar(),
                 movieInfo.getMovieLanguage(),
                 System.currentTimeMillis()
         );
@@ -40,10 +40,9 @@ public class FvrtMovieDbObjectConverter {
                 return fvrtMoviesDbObject.movieTitle;
             }
 
-            @NonNull
             @Override
-            public String getMovieVoteCount() {
-                return String.valueOf(fvrtMoviesDbObject.movieVoteCount);
+            public int getMovieStar() {
+                return fvrtMoviesDbObject.movieStarCount;
             }
 
             @NonNull

@@ -1,6 +1,7 @@
 package com.pandey.popcorn4.moviedetails.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,20 +12,20 @@ public class MovieDto implements Serializable {
 
     private boolean adult;
 
+    private int budget;
+
+    private int id;
+
     @Nullable
     private String backdropPath;
 
     @Nullable
     private MovieCollectionDto belongsToCollection;
 
-    private int budget;
-
-    private MovieGenresDto[] genres;
+    private List<MovieGenresDto> genres;
 
     @Nullable
     private String homepage;
-
-    private int id;
 
     @Nullable
     private String imdb_id;
@@ -47,7 +48,7 @@ public class MovieDto implements Serializable {
     private ProductionCountriesDto[] production_countries;
 
     @Nullable
-    private ProductionCompaniesDto[] production_companies;
+    private List<ProductionCompaniesDto> production_companies;
 
     @Nullable
     private String release_date;
@@ -106,7 +107,7 @@ public class MovieDto implements Serializable {
         return budget;
     }
 
-    public MovieGenresDto[] getGenres() {
+    public List<MovieGenresDto> getGenres() {
         return genres;
     }
 
@@ -154,7 +155,7 @@ public class MovieDto implements Serializable {
     }
 
     @Nullable
-    public ProductionCompaniesDto[] getProduction_companies() {
+    public List<ProductionCompaniesDto> getProduction_companies() {
         return production_companies;
     }
 
@@ -203,103 +204,4 @@ public class MovieDto implements Serializable {
         return vote_count;
     }
 
-    public void setAdult(boolean adult) {
-        this.adult = adult;
-    }
-
-    public void setBackdropPath(@Nullable String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
-
-    public void setBelongsToCollection(@Nullable MovieCollectionDto belongsToCollection) {
-        this.belongsToCollection = belongsToCollection;
-    }
-
-    public void setBudget(int budget) {
-        this.budget = budget;
-    }
-
-    public void setGenres(MovieGenresDto[] genres) {
-        this.genres = genres;
-    }
-
-    public void setHomepage(@Nullable String homepage) {
-        this.homepage = homepage;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setImdb_id(@Nullable String imdb_id) {
-        this.imdb_id = imdb_id;
-    }
-
-    public void setOriginal_language(@Nullable String original_language) {
-        this.original_language = original_language;
-    }
-
-    public void setOriginal_title(@Nullable String original_title) {
-        this.original_title = original_title;
-    }
-
-    public void setOverview(@Nullable String overview) {
-        this.overview = overview;
-    }
-
-    public void setPopularity(float popularity) {
-        this.popularity = popularity;
-    }
-
-    public void setPoster_path(@Nullable String poster_path) {
-        this.poster_path = poster_path;
-    }
-
-    public void setProduction_countries(@Nullable ProductionCountriesDto[] production_countries) {
-        this.production_countries = production_countries;
-    }
-
-    public void setProduction_companies(@Nullable ProductionCompaniesDto[] production_companies) {
-        this.production_companies = production_companies;
-    }
-
-    public void setRelease_date(@Nullable String release_date) {
-        this.release_date = release_date;
-    }
-
-    public void setRevenue(int revenue) {
-        this.revenue = revenue;
-    }
-
-    public void setRuntime(int runtime) {
-        this.runtime = runtime;
-    }
-
-    public void setSpoken_languages(@Nullable SpokenLanguagesDto[] spoken_languages) {
-        this.spoken_languages = spoken_languages;
-    }
-
-    public void setStatus(@Nullable String status) {
-        this.status = status;
-    }
-
-    public void setTagline(@Nullable String tagline) {
-        this.tagline = tagline;
-    }
-
-    public void setTitle(@Nullable String title) {
-        this.title = title;
-    }
-
-    public void setVideo(boolean video) {
-        this.video = video;
-    }
-
-    public void setVote_average(int vote_average) {
-        this.vote_average = vote_average;
-    }
-
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
-    }
 }

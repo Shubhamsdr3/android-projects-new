@@ -14,6 +14,8 @@ public class AppConfig {
 
     private static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/";
 
+    private static final String CONFIG_BASE_URL = "https://api.themoviedb.org/3/configuration";
+
     private static final String APPEND_VIDEO_WITH_RESPONSE = "videos";
 
     private static final String MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?page=1";
@@ -48,5 +50,9 @@ public class AppConfig {
 
     public static String getMovieImageBaseUrl() {
         return  MOVIE_IMAGE_BASE_URL;
+    }
+
+    public static String getConfigUrl() {
+        return CONFIG_BASE_URL;
     }
 }
