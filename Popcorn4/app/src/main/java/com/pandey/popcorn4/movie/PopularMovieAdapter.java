@@ -21,8 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PopularMovieAdapter
-        extends RecyclerView.Adapter<PopularMovieAdapter.PopularMovieViewHolder> {
+public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.PopularMovieViewHolder> {
 
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -46,8 +45,7 @@ public class PopularMovieAdapter
     @NonNull
     @Override
     public PopularMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.movie_card_view, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
         return new PopularMovieViewHolder(view);
     }
 

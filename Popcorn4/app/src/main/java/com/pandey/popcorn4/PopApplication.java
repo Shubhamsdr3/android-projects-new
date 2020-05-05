@@ -9,11 +9,12 @@ import android.content.ContextWrapper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
-import com.pandey.popcorn4.utils.RetrofitHelper;
+import com.pandey.popcorn4.data.network.RetrofitHelper;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class PopApplication extends Application {
 
@@ -31,10 +32,15 @@ public class PopApplication extends Application {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
+        mFirebaseAnalytics.setUserId("1010");
+        mFirebaseAnalytics.setUserProperty("user_id", "pandey_shubham");
+        mFirebaseAnalytics.setUserProperty("user_name", "Shubham Pandey");
         globalBuses = new GlobalBuses();
         fetchApiConfig();
         initConfig();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     // Initialize the Prefs class
@@ -49,8 +55,7 @@ public class PopApplication extends Application {
 
     @SuppressLint("CheckResult")
     private void fetchApiConfig() {
-        RetrofitHelper
-                .getApiService()
+        RetrofitHelper.Companion.getApiService()
                 .getAppConfig(
                         AppConfig.getConfigUrl(),
                         AppConfig.getMovieApiKey()

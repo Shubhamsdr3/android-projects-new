@@ -2,6 +2,7 @@ package com.pandey.popcorn4.camera;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -13,26 +14,25 @@ import java.io.IOException;
 
 import javax.annotation.Nullable;
 
-public class CameraPreview extends SurfaceView
-        implements SurfaceHolder.Callback2, Camera.PictureCallback {
+import timber.log.Timber;
 
+public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback2, Camera.PictureCallback {
 
     @Nullable
     private Camera mCamera;
 
-    @NonNull
+    @Nullable
     private SurfaceHolder mSurfaceHolder;
 
-    @NonNull
+    @Nullable
     private Context mContext;
 
     @Nullable
-    private CamerapPreviewListener mCameraPreviewListener;
+    private CameraPreviewListener mCameraPreviewListener;
 
     public CameraPreview(@NonNull Context context) {
         super(context);
-        mContext =context;
-
+        mContext = context;
         this.mSurfaceHolder = getHolder();
         this.mSurfaceHolder.addCallback(this);
     }
@@ -45,7 +45,7 @@ public class CameraPreview extends SurfaceView
         super(context, attrs, defStyleAttr);
     }
 
-    public void setCameraPreviewListener(@NonNull CamerapPreviewListener cameraPreviewListener) {
+    public void setCameraPreviewListener(@NonNull CameraPreviewListener cameraPreviewListener) {
         this.mCameraPreviewListener = cameraPreviewListener;
     }
 
@@ -58,8 +58,21 @@ public class CameraPreview extends SurfaceView
     public void surfaceCreated(SurfaceHolder holder) {
         mCamera = getCamera();
         Camera.Parameters cameraParameters = mCamera.getParameters();
+//        cameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         // set image quality
         cameraParameters.setJpegQuality(100); // 100 for the best quality
+
+        // correct the orientation
+        if (getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+            cameraParameters.set("orientation", "portrait");
+            mCamera.setDisplayOrientation(90);
+            cameraParameters.setRotation(90);
+        } else  {
+            cameraParameters.set("orientation", "landscape");
+            mCamera.setDisplayOrientation(0);
+            cameraParameters.setRotation(0);
+        }
+        mCamera.setParameters(cameraParameters);
         try {
             mCamera.setPreviewDisplay(mSurfaceHolder);
             mCamera.startPreview();
@@ -70,8 +83,7 @@ public class CameraPreview extends SurfaceView
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-        if (mSurfaceHolder.getSurface() == null){
+        if (mSurfaceHolder != null && mSurfaceHolder.getSurface() == null){
             return;
         }
         // stop preview before making changes
@@ -80,13 +92,9 @@ public class CameraPreview extends SurfaceView
                 mCamera.stopPreview();
             }
         } catch (Exception e){
-            // ignore: tried to stop a non-existent preview
+            Timber.e(e);
         }
 
-        // set preview size and make any resize, rotate or
-        // reformatting changes here
-
-        // start preview with new settings
         try {
             if (mCamera != null) {
                 mCamera.setPreviewDisplay(mSurfaceHolder);
@@ -106,6 +114,7 @@ public class CameraPreview extends SurfaceView
         }
     }
 
+    //singleton
     private static Camera getCamera() {
         Camera camera =  null;
         try {
@@ -118,7 +127,7 @@ public class CameraPreview extends SurfaceView
 
     public void takePicture() {
         if (mCamera != null) {
-            if (mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS)) {
+            if (mContext != null && mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS)) {
                 // if app has camera
                 mCamera.autoFocus((success, camera) -> {
                     if (success) {
@@ -135,17 +144,26 @@ public class CameraPreview extends SurfaceView
         }
     }
 
+    /**
+     * Called when image data is available after a picture is taken.
+     * The format of the data depends on the context of the callback
+     * and {@link Camera.Parameters} settings.
+     *
+     * @param data a byte array of the picture data
+     * @param camera the Camera service object
+     */
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
-        if (data != null && data.length > 0
-                && mCameraPreviewListener != null) {
+        if (data != null && data.length > 0 && mCameraPreviewListener != null) {
             mCameraPreviewListener.onSuccess(data);
         } else {
-            mCameraPreviewListener.onFailure();
+            if (mCameraPreviewListener != null) {
+                mCameraPreviewListener.onFailure();
+            }
         }
     }
 
-    public interface CamerapPreviewListener {
+    public interface CameraPreviewListener {
 
         void onSuccess(@NonNull byte[] data);
 

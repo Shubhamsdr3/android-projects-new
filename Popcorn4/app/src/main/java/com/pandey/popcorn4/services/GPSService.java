@@ -1,23 +1,20 @@
 package com.pandey.popcorn4.services;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import timber.log.Timber;
 
 public class GPSService extends Service {
 
     private LocationManager location = null;
     private NotificationManager notifier = null;
-
 
     @Nullable
     @Override
@@ -35,7 +32,7 @@ public class GPSService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (flags != 0) {
-            Log.w("GPSService", "Redelivered or retrying service start: " + flags);
+            Timber.tag("GPSService").w("Redelivered or retrying service start: %s", flags);
         }
 //        doServiceStart(intent, startId);
         return Service.START_REDELIVER_INTENT;

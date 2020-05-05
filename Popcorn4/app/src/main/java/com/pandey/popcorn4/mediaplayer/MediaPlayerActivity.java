@@ -36,7 +36,7 @@ public class MediaPlayerActivity extends YouTubeBaseActivity implements MediaPla
     }
 
     @Override
-    public void onVideoFetchSuccess(@NonNull List<VideoDto> videoList) {
+    public void onVideoFetchingSuccess(@NonNull List<VideoDto> videoList) {
         String videoId = "";
         for (VideoDto video : videoList) {
             if (video.getType() != null
@@ -58,4 +58,15 @@ public class MediaPlayerActivity extends YouTubeBaseActivity implements MediaPla
             }
         });
     }
+
+    @Override
+    public void onVideoFetching() {
+
+    }
+
+    @Override
+    public void onVideoFetchingFailed() {
+
+    }
+
 }

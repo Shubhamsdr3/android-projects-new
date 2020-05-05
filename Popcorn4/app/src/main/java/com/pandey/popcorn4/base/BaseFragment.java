@@ -19,8 +19,6 @@ import com.pandey.popcorn4.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 
 public abstract class BaseFragment<T> extends Fragment {
@@ -30,22 +28,25 @@ public abstract class BaseFragment<T> extends Fragment {
 
     private T mListener;
 
-    @NonNull
-    private CompositeDisposable mDisposable = new CompositeDisposable();
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Class<T> listenerClass = getListenerClass();
+
+        if (listenerClass.isInstance(context)) {
+            mListener = listenerClass.cast(context);
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement Fragments context");
+        }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View parentView = inflater.inflate(R.layout.fragment_base, container, false);
+        ButterKnife.bind(this, parentView);
         View inflatedView = inflater.inflate(getLayoutFile(), parentView.findViewById(R.id.main_container), false);
         ((FrameLayout)parentView.findViewById(R.id.main_container)).addView(inflatedView, 0);
-        ButterKnife.bind(this, parentView);
         return parentView;
     }
 
@@ -57,7 +58,6 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         beforeInit();
         initLayout();
         initListeners();
@@ -75,39 +75,32 @@ public abstract class BaseFragment<T> extends Fragment {
     public void afterInit() {
     }
 
-    public void addAllDisposable(Disposable... disposables) {
-        mDisposable.addAll(disposables);
-    }
-
     private void setUpToolbar() {
         FrameLayout toolbar = getToolBar();
-        if (toolbar != null) {
-            vToolbarContainer.addView(toolbar);
-        } else {
-            vToolbarContainer.setVisibility(View.GONE);
-        }
+//        if (toolbar != null) {
+//            vToolbarContainer.addView(toolbar);
+//        } else {
+//            vToolbarContainer.setVisibility(View.GONE);
+//        }
     }
 
     @Nullable
     public abstract FrameLayout getToolBar();
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        Class<T> listenerClass = getListenerClass();
-
-        if (listenerClass.isInstance(context)) {
-            mListener = listenerClass.cast(context);
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement Fragments context");
-        }
-
-    }
-
     @NonNull
     protected abstract Class<T> getListenerClass();
+
+    protected T getActivityCommunicator() {
+        return mListener;
+    }
+
+    @LayoutRes
+    public abstract int getLayoutFile();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 
     @Override
     public void onDetach() {
@@ -115,26 +108,9 @@ public abstract class BaseFragment<T> extends Fragment {
         mListener =  null;
     }
 
-    protected T getActivityCommunicator() {
-        return mListener;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mDisposable.clear();
-    }
-
-    @LayoutRes
-    public abstract int getLayoutFile();
-
-    public void startDialog(
-            @NonNull DialogFragment fragment,
-            boolean addToBackStack) {
-
+    public void startDialog(@NonNull DialogFragment fragment, boolean addToBackStack) {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-
         if (addToBackStack) {
             transaction.addToBackStack(fragment.getClass().getSimpleName());
         }

@@ -93,7 +93,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loading_animation"
+        android:id="@+id/popular_loading_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

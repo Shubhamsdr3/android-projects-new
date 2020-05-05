@@ -38,7 +38,7 @@ public class MovieDetailsActivity
         if (getIntent() != null) {
             moveId = getIntent().getIntExtra(MOVIE_ID, 0);
         }
-        Fragment fragment = MovieDetailFragment.newInstance(moveId);
+        Fragment fragment = MovieDetailFragment.Companion.newInstance(moveId);
         startFragment(fragment, true);
     }
 

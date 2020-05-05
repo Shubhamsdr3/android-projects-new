@@ -6,13 +6,18 @@
     <dist:module dist:instant="true" />
 
     <!-- Permissions-->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <!-- features reference   -->
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:name=".PopApplication"
@@ -40,7 +45,6 @@
             android:name="com.google.firebase.messaging.default_notification_channel"
             android:value="@string/pop_corn_channel_name" />
 
-
         <!-- Activities -->
         <activity
             android:name=".moviedetails.MovieDetailsActivity"
@@ -65,14 +69,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".customeviews.CustomActivity"
-
-            />
+        <activity android:name=".customeviews.CustomActivity" />
         <activity android:name=".fvrtmovies.FvrtMovieActivity" />
         <activity android:name=".mediaplayer.MediaPlayerActivity" />
 
@@ -95,14 +96,7 @@
 
         <activity
             android:name=".camera.PhotoCaptureActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/AppTheme">
         </activity>
 
         <service
@@ -122,6 +116,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
     </application>
 

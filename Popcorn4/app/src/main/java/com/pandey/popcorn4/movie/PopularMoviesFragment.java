@@ -27,12 +27,12 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pandey.popcorn4.PopApplication;
 import com.pandey.popcorn4.R;
 import com.pandey.popcorn4.base.BaseFragment;
-import com.pandey.popcorn4.firebase.FirebaseDatabaseUtil;
-import com.pandey.popcorn4.fvrtmovies.data.FvrtMovieDbObjectConverter;
+import com.pandey.popcorn4.data.network.db.FvrtMovieDbObjectConverter;
 import com.pandey.popcorn4.movie.customviews.MovieSearchBar;
 import com.pandey.popcorn4.movie.data.MovieInfo;
 import com.pandey.popcorn4.movie.data.MoviesResponseDto;
@@ -50,20 +50,14 @@ public class PopularMoviesFragment
         implements PopularMoviePresenter.PopularMovieView,
         PopularMovieAdapter.AdapterClickCallback, SwipeToDismissCallback.SwipeToDismissListener {
 
-
     public static final String MOVIE_TITLE = "MOVIE_TITLE";
     public static final String MOVIE_OVERVIEW = "MOVIE_OVERVIEW";
-
-    private static final int PICK_CONTACT_REQUEST = 1;
 
     @BindView(R.id.popular_movie_list)
     RecyclerView recyclerView;
 
     @BindView(R.id.movie_search_bar)
     MovieSearchBar vMovieSearchBar;
-
-//    @BindView(R.id.liked_movies_icon)
-//    ImageView vFvrtMovieIcon;
 
     @BindView(R.id.movie_list_card)
     CardView vMovieListCard;
@@ -83,10 +77,10 @@ public class PopularMoviesFragment
 
     @Override
     public void initLayout() {
-        recyclerView.setHasFixedSize(true);
-        mPopularMoviePresenter = new PopularMoviePresenter(Objects.requireNonNull(getContext()), this);
-        mPopularMoviePresenter.fetchPopularMovies();
-        vMovieSearchBar.setVisibility(View.VISIBLE);
+//        recyclerView.setHasFixedSize(true);
+//        mPopularMoviePresenter = new PopularMoviePresenter(Objects.requireNonNull(getContext()), this);
+//        mPopularMoviePresenter.fetchPopularMovies();
+//        vMovieSearchBar.setVisibility(View.VISIBLE);
 
         // Curved from top
         int curveRadius = 36;
@@ -102,7 +96,7 @@ public class PopularMoviesFragment
 
     @Override
     public void initListeners() {
-        DatabaseReference mRecentMovieSearch = FirebaseDatabaseUtil.getDatabaseReference();
+        DatabaseReference mRecentMovieSearch = FirebaseDatabase.getInstance().getReference();
         mRecentMovieSearch.child("movie2").setValue("Endgame");
         mRecentMovieSearch.child("recentSearch");
 
@@ -129,9 +123,9 @@ public class PopularMoviesFragment
 //            startActivityForResult(contactPickerIntent , PICK_CONTACT_REQUEST);
 //        });
 
-        vMovieSearchBar.getEditText().setOnClickListener(
-                v -> getActivityCommunicator().onSearchBarClicked()
-        );
+//        vMovieSearchBar.getEditText().setOnClickListener(
+//                v -> getActivityCommunicator().onSearchBarClicked()
+//        );
     }
 
     @Override
@@ -168,7 +162,7 @@ public class PopularMoviesFragment
 
     @Override
     public void onPopularMovieFetching() {
-        vLoadingView.playAnimation();
+//        vLoadingView.playAnimation();
 //        if(getContext()!= null) {
 //            Glide
 //                    .with(getContext())
@@ -179,7 +173,12 @@ public class PopularMoviesFragment
     }
 
     @Override
-    public void onPopularMoviesFetched(List<MovieInfo> movieList) {
+    public void onPopularMovieFetchingFailed() {
+
+    }
+
+    @Override
+    public void onPopularMoviesFetchingSuccess(List<MovieInfo> movieList) {
         vLoadingView.setVisibility(View.GONE);
 //        vMovieLoader.setVisibility(View.GONE);
 
@@ -220,12 +219,6 @@ public class PopularMoviesFragment
 
         // Enqueue the task request.
         workManager.enqueue(mRequest);
-//        workManager.getWorkInfoByIdLiveData(mRequest.getId()).observe(this, workInfo -> {
-//            if (workInfo != null) {
-//                WorkInfo.State state = workInfo.getState();
-//                Toast.makeText(getActivity(), "" + state.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
@@ -243,7 +236,7 @@ public class PopularMoviesFragment
         if (popularMovieAdapter != null) {
             MovieInfo movieInfo = popularMovieAdapter.getItem(position);
             if (mPopularMoviePresenter != null) {
-                mPopularMoviePresenter.saveToDb(FvrtMovieDbObjectConverter.toDbObject(movieInfo));
+                mPopularMoviePresenter.saveToDb(Objects.requireNonNull(FvrtMovieDbObjectConverter.Companion.toDbObject(movieInfo)));
             }
         }
     }

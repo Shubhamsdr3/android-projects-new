@@ -18,11 +18,10 @@ import com.pandey.popcorn4.R;
 public class NetworkLoaderView extends View {
 
     //circle and text colors
-    private int circleCol, labelCol;
-
+    private int circleCol;
+    private int labelCol;
     //label text
     private String circleText;
-
     //paint for drawing custom view
     private Paint circlePaint;
 

@@ -9,16 +9,14 @@ import io.reactivex.subjects.PublishSubject;
 
 public class GlobalBuses {
 
-
     private PublishSubject<String> changeBus = PublishSubject.create();
 
     public void send(@NonNull String message) {
         changeBus.onNext(message);
     }
 
-
     @Singleton
-    public Observable<String> toObservable() {
+    Observable<String> toObservable() {
         return changeBus;
     }
 }

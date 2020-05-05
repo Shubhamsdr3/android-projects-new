@@ -5,28 +5,19 @@ import androidx.annotation.Nullable;
 
 import com.pandey.popcorn4.AppConfig;
 import com.pandey.popcorn4.base.BasePresenter;
+import com.pandey.popcorn4.data.network.RetrofitHelper;
 import com.pandey.popcorn4.mediaplayer.data.VideoDto;
-import com.pandey.popcorn4.mediaplayer.data.VideoResponseDto;
-import com.pandey.popcorn4.utils.RetrofitHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 
-public class MediaPlayerPresenter extends BasePresenter {
-
-    @NonNull
-    private List<VideoDto> mVideoList = new ArrayList<>();
+class MediaPlayerPresenter extends BasePresenter {
 
     @Nullable
     private MediaPlayerView mMediaPlayerView;
-
 
     MediaPlayerPresenter(@Nullable MediaPlayerView mMediaPlayerView) {
         this.mMediaPlayerView = mMediaPlayerView;
@@ -34,41 +25,32 @@ public class MediaPlayerPresenter extends BasePresenter {
 
     void fetchMovieTrailer(int movieId) {
         String movieTrailerUrl = AppConfig.getMovieBaseUrl() + movieId + "/videos?";
-        RetrofitHelper
+        RetrofitHelper.Companion
                 .getApiService()
-                .getMovieTrailer(
-                        movieTrailerUrl,
-                        AppConfig.getEngLang(),
-                        AppConfig.getMovieApiKey()
+                .getMovieTrailer(movieTrailerUrl, AppConfig.getEngLang(), AppConfig.getMovieApiKey()
                 ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<VideoResponseDto>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
+                .doOnSubscribe(disposable -> {
+                    if (mMediaPlayerView != null) {
+                        mMediaPlayerView.onVideoFetching();
                     }
-
-                    @Override
-                    public void onNext(VideoResponseDto videoResponseDto) {
-                        mVideoList.addAll(videoResponseDto.getResults());
+                })
+                .doOnSuccess(videoResponseDto -> {
+                    if (mMediaPlayerView != null) {
+                        mMediaPlayerView.onVideoFetchingSuccess(videoResponseDto.getResults());
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.i(e.toString());
+                })
+                .doOnError(throwable -> {
+                    if (mMediaPlayerView != null) {
+                        mMediaPlayerView.onVideoFetchingFailed();
                     }
-
-                    @Override
-                    public void onComplete() {
-                        if (mMediaPlayerView != null) {
-                            mMediaPlayerView.onVideoFetchSuccess(mVideoList);
-                        }
-                    }
-                });
-
+                })
+                .subscribe();
     }
 
     public interface MediaPlayerView {
-        void onVideoFetchSuccess(@NonNull List<VideoDto> videoList);
+        void onVideoFetching();
+        void onVideoFetchingFailed();
+        void onVideoFetchingSuccess(@NonNull List<VideoDto> videoList);
     }
 }

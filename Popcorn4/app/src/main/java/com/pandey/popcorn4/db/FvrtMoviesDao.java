@@ -4,6 +4,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.pandey.popcorn4.data.network.db.FvrtMoviesDbObject;
+
 import java.util.List;
 
 import io.reactivex.Flowable;

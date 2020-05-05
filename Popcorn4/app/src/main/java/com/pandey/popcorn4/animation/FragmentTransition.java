@@ -1,7 +1,5 @@
 package com.pandey.popcorn4.animation;
 
-import com.pandey.popcorn4.moviedetails.MovieDetailFragment;
-
 public class FragmentTransition  {
 //
 //    MovieDetailFragment movieDetailFragment = new MovieDetailFragment();

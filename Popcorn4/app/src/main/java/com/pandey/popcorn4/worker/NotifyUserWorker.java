@@ -31,20 +31,22 @@ public class NotifyUserWorker extends Worker {
         super(context, workerParams);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @NonNull
     @Override
     public Result doWork() {
         Timber.i("So notification is working...");
-        String movieTitle = getInputData().getString(MOVIE_TITLE);
-        String movieOverview = getInputData().getString(MOVIE_OVERVIEW);
-        showMovieNotification(movieTitle, movieOverview);
-        return Result.success();
+        try {
+            String movieTitle = getInputData().getString(MOVIE_TITLE);
+            String movieOverview = getInputData().getString(MOVIE_OVERVIEW);
+            showMovieNotification(movieTitle, movieOverview);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.failure();
+        }
     }
 
     private void showMovieNotification(@Nullable String movieTitle, @Nullable String movieOverview) {
-        NotificationManager manager =
-                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = "task_channel";
         String channelName = "task_name";
 

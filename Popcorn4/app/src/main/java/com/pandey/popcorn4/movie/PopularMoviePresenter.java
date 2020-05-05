@@ -6,38 +6,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.pandey.popcorn4.AppConfig;
 import com.pandey.popcorn4.base.BasePresenter;
+import com.pandey.popcorn4.data.network.RetrofitHelper;
+import com.pandey.popcorn4.data.network.db.FvrtMoviesDbObject;
 import com.pandey.popcorn4.db.AppDatabase;
-import com.pandey.popcorn4.db.FvrtMoviesDbObject;
 import com.pandey.popcorn4.movie.data.MovieInfo;
 import com.pandey.popcorn4.movie.data.MoviesResponseDto;
 import com.pandey.popcorn4.utils.DataUtils;
-import com.pandey.popcorn4.utils.RetrofitHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 class PopularMoviePresenter extends BasePresenter {
 
-
-    @NonNull
-    private List<MoviesResponseDto> movieList = new ArrayList<>();
-
     @Nullable
     private PopularMovieView popularMovieView;
-
-
-    @Nullable
-    private MoviesResponseDto mMovieResponseDto;
 
     @NonNull
     private Context mContext;
@@ -45,78 +33,52 @@ class PopularMoviePresenter extends BasePresenter {
     PopularMoviePresenter(@NonNull Context mContext, @Nullable PopularMovieView popularMovieView) {
         this.popularMovieView = popularMovieView;
         this.mContext = mContext;
-        fetchLatestMovie();
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+//        fetchLatestMovie();
     }
 
     void fetchPopularMovies() {
-        RetrofitHelper
+        RetrofitHelper.Companion
                 .getApiService()
-                .getPopularMovies(
-                        AppConfig.getMovieBaseUrl() + "popular",
-                        AppConfig.getMovieApiKey()
-                ).subscribeOn(Schedulers.io())
+                .getPopularMovies(AppConfig.getMovieBaseUrl() + "popular", AppConfig.getMovieApiKey())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<JsonObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        if (popularMovieView != null) {
-                            popularMovieView.onPopularMovieFetching();
-                        }
+                .doOnSubscribe(disposable -> {
+                    if (popularMovieView != null) {
+                        popularMovieView.onPopularMovieFetching();
                     }
-
-                    @Override
-                    public void onNext(JsonObject jsonObject) {
-                        Timber.i("Json response %s", jsonObject);
+                }).doOnError(throwable -> {
+                    if (popularMovieView != null) {
+                        popularMovieView.onPopularMovieFetchingFailed();
+                    }
+                }).doOnSuccess( jsonObject -> {
+                    if (popularMovieView != null) {
                         JsonArray jsonArray = (JsonArray) jsonObject.get("results");
-                        movieList.addAll(DataUtils.parseJSONArrayToList(jsonArray));
+                        handleResponse(DataUtils.parseJSONArrayToList(jsonArray));
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.i(e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        handleResponse(movieList);
-                    }
-                });
+                }).subscribe();
     }
 
     private void fetchLatestMovie() {
         String latestMovieUrl = AppConfig.getMovieBaseUrl() + "latest";
-
-        RetrofitHelper
+        RetrofitHelper.Companion
                 .getApiService()
-                .getLatestMovie(
-                        latestMovieUrl,
-                        AppConfig.getEngLang(),
-                        AppConfig.getMovieApiKey()
+                .getLatestMovie(latestMovieUrl, AppConfig.getEngLang(), AppConfig.getMovieApiKey()
                 ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MoviesResponseDto>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                .doOnSubscribe(disposable -> {
 
+                }).doOnSuccess(moviesResponseDto -> {
+                    if (popularMovieView != null) {
+                        popularMovieView.onLatestMovieFetchSuccess(moviesResponseDto);
                     }
+                }).doOnError(throwable -> {
 
-                    @Override
-                    public void onNext(MoviesResponseDto moviesResponseDto) {
-                        mMovieResponseDto = moviesResponseDto;
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.i(e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        if (popularMovieView != null && mMovieResponseDto != null) {
-                            popularMovieView.onLatestMovieFetchSuccess(mMovieResponseDto);
-                        }
-                    }
-                });
+                }).subscribe();
     }
 
     private void handleResponse(@NonNull List<MoviesResponseDto> movieList) {
@@ -124,7 +86,7 @@ class PopularMoviePresenter extends BasePresenter {
 
         for (MoviesResponseDto moviesResponseDto: movieList) {
 
-            movieInfoList.add(
+            movieInfoList.add (
                     new MovieInfo() {
                         @Override
                         public int getMovieId() {
@@ -163,7 +125,7 @@ class PopularMoviePresenter extends BasePresenter {
         }
 
         if (popularMovieView != null) {
-            popularMovieView.onPopularMoviesFetched(movieInfoList);
+            popularMovieView.onPopularMoviesFetchingSuccess(movieInfoList);
         }
     }
 
@@ -177,7 +139,8 @@ class PopularMoviePresenter extends BasePresenter {
 
     public interface PopularMovieView {
         void onPopularMovieFetching();
-        void onPopularMoviesFetched(List<MovieInfo> movieInfoList);
+        void onPopularMovieFetchingFailed();
+        void onPopularMoviesFetchingSuccess(List<MovieInfo> movieInfoList);
         void onLatestMovieFetchSuccess(@NonNull MoviesResponseDto moviesResponseDto);
     }
 }

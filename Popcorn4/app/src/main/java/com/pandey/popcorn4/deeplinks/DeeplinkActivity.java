@@ -14,12 +14,12 @@ public class DeeplinkActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DeepLinkDelegate deepLinkDelegate =
-                new DeepLinkDelegate(new AppDeeplinkModuleLoader());
-        DeepLinkResult deepLinkResult = deepLinkDelegate.dispatchFrom(this);
-        if (!deepLinkResult.isSuccessful()) {
-            startActivity(new Intent(this, HomeActivity.class));
-        }
+//        DeepLinkDelegate deepLinkDelegate =
+//                new DeepLinkDelegate(new AppDeeplinkModuleLoader());
+//        DeepLinkResult deepLinkResult = deepLinkDelegate.dispatchFrom(this);
+//        if (!deepLinkResult.isSuccessful()) {
+//            startActivity(new Intent(this, HomeActivity.class));
+//        }
         finish(); // Finish this Activity since the correct one has been just started
     }
 
