@@ -33,4 +33,8 @@
     <string name="studio_title">Studio</string>
     <string name="genre_title">Genre</string>
     <string name="release_title">Release</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

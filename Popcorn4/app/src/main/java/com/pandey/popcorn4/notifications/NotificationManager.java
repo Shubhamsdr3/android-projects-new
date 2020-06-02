@@ -35,7 +35,7 @@ public class NotificationManager {
 
     private static int notificationId = (int) (Math.random()*10000);
 
-    NotificationManager(@NonNull Context context) {
+    public NotificationManager(@NonNull Context context) {
         this.mContext = context;
         Timber.d("Inside the notification manager...");
     }
@@ -44,7 +44,7 @@ public class NotificationManager {
      * Call back method when app is in foreground
      * @param remoteMessage : Message received when user gets notification.
      */
-    void notifyRemoteMessage(@NonNull RemoteMessage remoteMessage) {
+    public void notifyRemoteMessage(@NonNull RemoteMessage remoteMessage) {
         Timber.d("Working on notification received...: %s",  remoteMessage.toString());
         // default notification from firebase console
         if (remoteMessage.getNotification() == null || remoteMessage.getData().size() == 0) {

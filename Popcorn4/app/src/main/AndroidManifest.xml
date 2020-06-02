@@ -3,21 +3,18 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.pandey.popcorn4">
 
-    <dist:module dist:instant="true" />
-
-    <!-- Permissions-->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <dist:module dist:instant="true" /> <!-- Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
-    <!-- features reference   -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- features reference -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.location.gps" />
+
+    <uses-feature android:name="android.hardware.camera2.full" />
 
     <application
         android:name=".PopApplication"
@@ -28,62 +25,82 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--For firebase messaging service-->
-        <!--Set custom default icon. This is used when no icon is set for incoming notification messages.-->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_popcorn" />
-
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-
-        <!--Defining your default notification channel id-->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel"
-            android:value="@string/pop_corn_channel_name" />
-
-        <!-- Activities -->
-        <activity
-            android:name=".moviedetails.MovieDetailsActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="app://"
-                    android:host="www.popcorn.com"
-                    android:path="/movieDetail"
-                    />
-            </intent-filter>
-
-        </activity>
-
         <activity
             android:name=".HomeActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".chat.ChatActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="ChatActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".chat.SigningActivity" />
+        <activity
+            android:name=".chat.ChatHomeActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" /> <!-- For firebase messaging service -->
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_popcorn" />
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" /> <!-- Defining your default notification channel id -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel"
+            android:value="@string/pop_corn_channel_name" /> <!-- Activities -->
+        <activity
+            android:name=".moviedetails.MovieDetailsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.popcorn.com"
+                    android:path="/movieDetail"
+                    android:scheme="app://" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".chat.SplashActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".customeviews.CustomActivity" />
         <activity android:name=".fvrtmovies.FvrtMovieActivity" />
         <activity android:name=".mediaplayer.MediaPlayerActivity" />
-
-        <activity android:name=".deeplinks.DeeplinkActivity"
+        <activity
+            android:name=".deeplinks.DeeplinkActivity"
             android:theme="@style/Theme.AppCompat">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="www.popcorn.com"
                     android:scheme="http" />
@@ -91,13 +108,10 @@
                     android:host="www.popcorn.com"
                     android:scheme="https" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".camera.PhotoCaptureActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme" />
 
         <service
             android:name=".services.GPSService"
@@ -107,9 +121,8 @@
                 <action android:name="com.androidbook.services.GPSService.SERVICE" />
             </intent-filter>
         </service>
-
         <service
-            android:name=".notifications.FBNotificationService"
+            android:name=".chat.services.FBNotificationService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -126,7 +139,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

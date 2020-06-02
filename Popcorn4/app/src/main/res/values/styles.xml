@@ -41,4 +41,8 @@
         <item name="android:windowEnterTransition">@transition/detail_enter</item>
     </style>
 
+    <style name="SplashActivity" parent="Theme.AppCompat.Light.NoActionBar" >
+
+    </style>
+
 </resources>

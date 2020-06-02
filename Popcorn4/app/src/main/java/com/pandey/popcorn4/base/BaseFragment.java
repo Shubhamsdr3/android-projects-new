@@ -77,11 +77,11 @@ public abstract class BaseFragment<T> extends Fragment {
 
     private void setUpToolbar() {
         FrameLayout toolbar = getToolBar();
-//        if (toolbar != null) {
-//            vToolbarContainer.addView(toolbar);
-//        } else {
-//            vToolbarContainer.setVisibility(View.GONE);
-//        }
+        if (toolbar != null) {
+            vToolbarContainer.addView(toolbar);
+        } else {
+            vToolbarContainer.setVisibility(View.GONE);
+        }
     }
 
     @Nullable
