@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat;
 
 import com.pandey.popcorn4.base.BaseActivity;
 
-public class PhotoCaptureActivity extends BaseActivity implements PhotoCaptureFragment.PhotoCaptureFragmentListener {
+public class PhotoCaptureActivity extends BaseActivity implements CameraNewFragment.CameraNewFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class PhotoCaptureActivity extends BaseActivity implements PhotoCaptureFr
                     50
             );
         }
-        startFragment(PhotoCaptureFragment.Companion.newInstance(), true);
+        startFragment(CameraNewFragment.Companion.newInstance(), true);
     }
 
     @Override
