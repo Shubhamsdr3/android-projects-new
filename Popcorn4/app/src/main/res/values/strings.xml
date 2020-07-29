@@ -21,4 +21,20 @@
     <string name="popular_movies_title">Popular Movies</string>
     <string name="no_result_found">No result Found.</string>
     <string name="search">Search</string>
+    <string name="fcm_token">FCM token 1%s</string>
+    <string name="pop_corn_channel_name">pop_corn_channel_id</string>
+    <string name="channel_description">Pta ni ye kya hota hai ??</string>
+    <string name="snooze">SNOOZE</string>
+    <string name="picture_transition_name">Example Transition</string>
+    <string name="watch_movie_question_title">Hello, what do you want to watch ?</string>
+    <string name="recommended_for_you">RECOMMENDED FOR YOU</string>
+    <string name="see_all">See all</string>
+    <string name="watch_now">Watch now</string>
+    <string name="studio_title">Studio</string>
+    <string name="genre_title">Genre</string>
+    <string name="release_title">Release</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

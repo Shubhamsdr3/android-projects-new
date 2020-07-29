@@ -39,7 +39,7 @@ public class MovieSearchAdapterFilterable extends
     @NonNull
     private Context context;
 
-    MovieSearchAdapterFilterable(@NonNull Context context,  @NonNull List<MoviesResponseDto> movieList,
+    MovieSearchAdapterFilterable(@NonNull Context context, @NonNull List<MoviesResponseDto> movieList,
                                  @NonNull MovieSearchAdapterListener movieSearchAdapterListener) {
 
         this.context = context;

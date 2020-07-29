@@ -21,13 +21,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        if (getLayoutResId() != 0) {
+            setContentView(getLayoutResId());
+        } else {
+            setContentView(R.layout.activity_base);
+        }
         ButterKnife.bind(this);
-
     }
 
-    public void startFragment(@NonNull Fragment fragment,
-                              boolean addToBackStack) {
+    public void startFragment(@NonNull Fragment fragment, boolean addToBackStack) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.main_container, fragment, fragment.getClass().getSimpleName());
@@ -46,8 +48,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
             finish();
-        } else if (getFragmentManager().getBackStackEntryCount() > 1) {
-            getFragmentManager().popBackStack();
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }

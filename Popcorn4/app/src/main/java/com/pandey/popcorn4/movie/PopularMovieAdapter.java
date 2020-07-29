@@ -7,28 +7,36 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.pandey.popcorn4.R;
-import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.movie.customviews.MovieStarsView;
+import com.pandey.popcorn4.movie.data.MovieInfo;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.droidsonroids.gif.GifImageView;
 
 public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapter.PopularMovieViewHolder> {
 
-    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w92";
+    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-    private List<MoviesResponseDto> popularMovieList;
+    @NonNull
+    private List<MovieInfo> popularMovieList;
+
+    @NonNull
     private Context context;
 
+    @Nullable
     private AdapterClickCallback mAdapterCallback;
 
-    PopularMovieAdapter(List<MoviesResponseDto> movieList, Context context, AdapterClickCallback mAdapterCallback) {
+    public PopularMovieAdapter(@NonNull List<MovieInfo> movieList,
+                               @NonNull Context context,
+                               @Nullable AdapterClickCallback mAdapterCallback) {
         this.popularMovieList = movieList;
         this.context = context;
         this.mAdapterCallback = mAdapterCallback;
@@ -37,30 +45,28 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
     @NonNull
     @Override
     public PopularMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_popular_movie, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card_view, parent, false);
         return new PopularMovieViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PopularMovieViewHolder holder, int position) {
-        MoviesResponseDto movie= popularMovieList.get(position);
-        String imageBaseUrl = IMAGE_BASE_URL + movie.getPoster_path();
+        MovieInfo movie= popularMovieList.get(position);
+        String imageBaseUrl = IMAGE_BASE_URL + movie.getMoviePoster();
         Glide.with(context)
                 .load(imageBaseUrl)
                 .into(holder.movieImage);
-        holder.movieTitle.setText(String.valueOf(movie.getTitle()));
-        holder.movieDescription.setText(String.valueOf(movie.getOverview()));
-        holder.movieVoteCount.setText(String.valueOf(movie.getVote_count()));
+        holder.movieTitle.setText(movie.getMovieTitle());
+        holder.vMovieStarsView.showStars((movie.getMovieStar()));
         holder.bind(movie);
     }
 
     @NonNull
     private AdapterClickCallback getCallback() {
         if (mAdapterCallback == null) {
-            return (movieDto) -> {
+            return ((view, movieInfo) -> {
                 throw new IllegalStateException("Bhai define to krde callback!");
-            };
+            });
         }
         return mAdapterCallback;
     }
@@ -70,32 +76,44 @@ public class PopularMovieAdapter extends RecyclerView.Adapter<PopularMovieAdapte
         return popularMovieList.size();
     }
 
+    void removeItem(int position) {
+        popularMovieList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, popularMovieList.size());
+    }
+
+    void restoreItem(MovieInfo item, int position) {
+        popularMovieList.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    MovieInfo getItem(int position) {
+        return popularMovieList.get(position);
+    }
+
     class PopularMovieViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.movie_image)
+        @BindView(R.id.movie_poster_image)
         ImageView movieImage;
 
         @BindView(R.id.movie_title)
         TextView movieTitle;
 
-        @BindView(R.id.movie_vote_count)
-        TextView movieVoteCount;
-
-        @BindView(R.id.movie_description)
-        TextView movieDescription;
+        @BindView(R.id.movie_stars_view)
+        MovieStarsView vMovieStarsView;
 
         PopularMovieViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(@NonNull MoviesResponseDto movieDto) {
-            itemView.setOnClickListener(v -> getCallback().onAdapterItemClick(movieDto));
+        void bind(@NonNull MovieInfo movieInfo) {
+            itemView.setOnClickListener(v -> getCallback().onAdapterItemClick(v, movieInfo));
         }
     }
 
     public interface AdapterClickCallback {
-        void onAdapterItemClick(@NonNull MoviesResponseDto movieDto);
+        void onAdapterItemClick(@NonNull View view, @NonNull MovieInfo movieInfo);
     }
 }
 

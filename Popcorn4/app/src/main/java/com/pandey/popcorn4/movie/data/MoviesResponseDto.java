@@ -4,6 +4,7 @@ package com.pandey.popcorn4.movie.data;
 import java.io.Serializable;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MoviesResponseDto implements Serializable {
@@ -18,7 +19,7 @@ public class MoviesResponseDto implements Serializable {
     @Nullable
     private String poster_path;
 
-    @Nullable
+    @NonNull
     private String title;
 
     @Nullable
@@ -48,7 +49,7 @@ public class MoviesResponseDto implements Serializable {
         return id;
     }
 
-    @Nullable
+    @NonNull
     public String getTitle() {
         return title;
     }

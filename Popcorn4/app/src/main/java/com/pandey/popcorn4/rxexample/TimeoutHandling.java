@@ -1,7 +1,5 @@
 package com.pandey.popcorn4.rxexample;
 
-import java.util.concurrent.TimeoutException;
-
 import io.reactivex.Observable;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -23,8 +21,6 @@ public class TimeoutHandling {
         TimeoutHandling timeoutHandling = new TimeoutHandling();
         timeoutHandling.confirmation();
     }
-
-
 }
 
 

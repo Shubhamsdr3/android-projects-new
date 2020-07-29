@@ -1,133 +1,106 @@
 package com.pandey.popcorn4;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-
-import com.pandey.popcorn4.base.BaseActivity;
-import com.pandey.popcorn4.movie.PopularMoviesFragment;
-import com.pandey.popcorn4.movie.data.MoviesResponseDto;
-import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
-import com.pandey.popcorn4.news.NewsFragment;
-import com.pandey.popcorn4.search.MovieSearchFragment;
-
-import org.jetbrains.annotations.NotNull;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.core.app.ActivityOptionsCompat;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.pandey.popcorn4.base.BaseActivity;
+import com.pandey.popcorn4.movie.PopularMovieFragment;
+import com.pandey.popcorn4.movie.data.MoviesResponseDto;
+import com.pandey.popcorn4.moviedetails.MovieDetailsActivity;
+import com.pandey.popcorn4.search.MovieSearchFragment;
+
+import timber.log.Timber;
 
 
 public class HomeActivity extends BaseActivity implements
-        PopularMoviesFragment.PopularMoviesFragmentListener, NewsFragment.NewsFragmentInteractionListener ,
-        MovieSearchFragment.MovieSearchFragmentInteractionListener {
+        PopularMovieFragment.PopularMovieFragmentListener , MovieSearchFragment.MovieSearchFragmentListener {
 
     private static final String MOVIE_ID = "MOVIE_ID";
 
-    @BindView(R.id.popular_movies_text)
-    TextView vPopularMoviesFragment;
-
-    @BindView(R.id.news_feed)
-    TextView vNewsFeedFragment;
-
-    @BindView(R.id.viewpager)
-    ViewPager viewPager;
-
-    FragmentPagerAdapter adapterViewPager;
-
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
 
-        adapterViewPager = new HomePageAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapterViewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // Firebase registration token
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        //To do
+                        return;
+                    }
+                    // Get the Instance ID token
+                    String token = task.getResult().getToken();
+                    String msg = getResources().getString(R.string.fcm_token, token);
+                    Timber.d(msg);
 
-            }
-            @Override
-            public void onPageSelected(int position) {
+                });
 
-            }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+        PopApplication.getInstance().getGlobalBuses().toObservable().subscribe(s -> {
+            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         });
 
-        vPopularMoviesFragment.setOnClickListener(v -> {
-            int currentFragment = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(currentFragment, false);
-        });
-
-        vNewsFeedFragment.setOnClickListener(v -> {
-            int currentFragment = viewPager.getCurrentItem();
-            viewPager.setCurrentItem(currentFragment, false);
-        });
+        startFragment(PopularMovieFragment.Companion.newInstance(), true);
     }
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_main;
+        return 0;
     }
 
-    @Override
-    public void onMovieDetailClicked(int movieId) {
-        Intent newActivity =  new Intent(this, MovieDetailsActivity.class);
-        newActivity.putExtra(MOVIE_ID, movieId);
-        startActivity(newActivity);
-    }
+//    @Override
+//    public void onMovieDetailClicked(@NonNull View view, int movieId) {
+//
+//    }
+//
+//    @Override
+//    public void onSearchBarClicked() {
+//        startFragment(new MovieSearchFragment(), true);
+//    }
+//
+//    @Override
+//    public void onFvrtMovieIconClicked(@NonNull View view) {
+//
+//
+////        startActivity(new Intent(this, FvrtMovieActivity.class));
+//    }
 
     @Override
-    public void onSearchIconClicked() {
-        startFragment(MovieSearchFragment.newInstance(), true);
-    }
-
-    @Override
-    public void onNewsFragmentInteractionListener() {
+    protected void onResume() {
+        super.onResume();
+        FirebaseAnalytics mfireBaseAnalytics = PopApplication.getFirebaseAnalytics();
+        Bundle bundle = new Bundle();
+        bundle.putString("action", "actionStr");
+        bundle.putString("label", "labelStr");
+        mfireBaseAnalytics.logEvent("category", bundle);
     }
 
     @Override
     public void onMovieSelectedFromSearch(@Nullable MoviesResponseDto moviesResponseDto) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra(MOVIE_ID, moviesResponseDto.getId());
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
-    public  static class HomePageAdapter extends FragmentPagerAdapter {
-
-        private static int NUM_ITEMS = 1;
-        HomePageAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @NotNull
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return PopularMoviesFragment.newInstance();
-//                case 1:
-//                    return new NewsFragment();
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_ITEMS;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + position;
-        }
+    @Override
+    public void onMovieClicked(View view, int movieId) {
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this ,
+                        view,
+                        getString(R.string.picture_transition_name)
+                );
+        Intent newActivity =  new Intent(this, MovieDetailsActivity.class);
+        newActivity.putExtra(MOVIE_ID, movieId);
+        startActivity(newActivity, options.toBundle());
     }
 }
