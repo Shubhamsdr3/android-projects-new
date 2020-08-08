@@ -3,14 +3,20 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.pandey.popcorn4">
 
-    <dist:module dist:instant="true" /> <!-- Permissions -->
+    <dist:module dist:instant="true" />
+
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- features reference -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- features reference -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -29,12 +35,12 @@
         <activity
             android:name=".HomeActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <activity
@@ -122,6 +128,16 @@
             android:name=".camera.PhotoCaptureActivity"
             android:theme="@style/AppTheme" />
 
+        <activity android:name=".location.LocationActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Services -->
         <service
             android:name=".services.GPSService"
             android:enabled="true"
@@ -130,10 +146,11 @@
                 <action android:name="com.androidbook.services.GPSService.SERVICE" />
             </intent-filter>
         </service>
+
         <service
             android:name=".chat.services.FBNotificationService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

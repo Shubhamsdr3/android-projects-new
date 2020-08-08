@@ -33,10 +33,10 @@ class PopularMovieFragment : BaseFragmentNew() ,
         popularMovieFragmentListener = getCommunicator() as PopularMovieFragmentListener
         popular_loading_animation.visibility = View.GONE
 
-        val popularMoviePresenter = PopularMoviePresenter(context!!, this)
+        val popularMoviePresenter = PopularMoviePresenter(requireContext(), this)
         popularMoviePresenter.fetchPopularMovies()
 
-        val swipeToDismissCallback = SwipeToDismissCallback(activity!!, this)
+        val swipeToDismissCallback = SwipeToDismissCallback(requireActivity(), this)
         val itemTouchHelper = ItemTouchHelper(swipeToDismissCallback)
         itemTouchHelper.attachToRecyclerView(popular_movie_list)
 

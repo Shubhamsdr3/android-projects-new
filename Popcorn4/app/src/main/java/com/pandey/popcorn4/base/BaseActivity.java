@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 import android.app.ActionBar;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 import com.pandey.popcorn4.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         transaction.commitAllowingStateLoss();
     }
 
+    public void addDisposables(Disposable ...args) {
+        disposable.addAll(args);
+    }
+
     protected abstract int getLayoutResId();
 
     @Override
@@ -53,5 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        disposable.clear();
+        super.onDestroy();
     }
 }

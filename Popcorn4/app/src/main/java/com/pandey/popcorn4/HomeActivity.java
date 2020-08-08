@@ -26,7 +26,7 @@ public class HomeActivity extends BaseActivity implements
 
     private static final String MOVIE_ID = "MOVIE_ID";
 
-    @SuppressLint("CheckResult")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +45,11 @@ public class HomeActivity extends BaseActivity implements
 
                 });
 
-        PopApplication.getInstance().getGlobalBuses().toObservable().subscribe(s -> {
-            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-        });
-
+        addDisposables(
+            PopApplication.getInstance().getGlobalBuses().toObservable().subscribe(s -> {
+                Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+            })
+        );
         startFragment(PopularMovieFragment.Companion.newInstance(), true);
     }
 
