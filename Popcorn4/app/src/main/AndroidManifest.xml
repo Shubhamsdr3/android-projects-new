@@ -15,11 +15,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <!-- features reference -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.location.gps" />
-
     <uses-feature android:name="android.hardware.camera2.full" />
 
     <application
@@ -95,15 +95,17 @@
             android:theme="@style/AppTheme" />
 
         <activity android:name=".mediaplayer.AudioMediaPlayerActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
-        <service android:name=".mediaplayer.MediaPlayerService" />
+        <service android:name=".mediaplayer.MediaPlayerService"
+            android:enabled="true" />
+
         <activity android:name=".customeviews.CustomActivity" />
         <activity android:name=".fvrtmovies.FvrtMovieActivity" />
 
@@ -129,12 +131,12 @@
             android:theme="@style/AppTheme" />
 
         <activity android:name=".location.LocationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
 
         <!-- Services -->
@@ -161,9 +163,11 @@
             android:authorities="com.example.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+
         </provider>
     </application>
 

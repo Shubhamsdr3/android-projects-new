@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/audio_cancel_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="6dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        android:layout_below="@+id/audio_cancel_button">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="18dp">
+
+            <ImageView
+                android:id="@+id/player_user_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/media_control_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Play"
+                android:padding="4dp"
+                android:textSize="32sp"
+                app:layout_constraintStart_toEndOf="@+id/player_user_profile"
+                app:layout_constraintTop_toTopOf="@+id/player_user_profile"
+                app:layout_constraintBottom_toBottomOf="@+id/player_user_profile" />
+
+            <SeekBar
+                android:id="@+id/audio_progress_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/media_control_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.pandey.shubham.timertextview.TimerTextView
+                android:id="@+id/play_progress_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5:01"
+                android:textSize="12sp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="@+id/audio_progress_seekbar"
+                app:layout_constraintTop_toBottomOf="@+id/audio_progress_seekbar" />
+
+            <com.pandey.shubham.timertextview.TimerTextView
+                android:id="@+id/total_play_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:01"
+                android:textSize="12sp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/audio_progress_seekbar"
+                app:layout_constraintTop_toBottomOf="@+id/audio_progress_seekbar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -32,6 +32,7 @@ public abstract class BaseCustomView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         initLayout();
+
     }
 
     public void initLayout() {
@@ -40,6 +41,11 @@ public abstract class BaseCustomView extends FrameLayout {
         );
         ButterKnife.bind(this, rootView);
         addView(rootView);
+        initListener();
+    }
+
+    public void initListener(){
+
     }
 
     @LayoutRes
